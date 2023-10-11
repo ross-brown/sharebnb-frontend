@@ -18,23 +18,48 @@ User page- edit profile, see bookings, see listings
 Component hierarchy:
 
 ShareBnBApp
+-state: currentUser {data, infoLoaded}
+        token, from localStorage
+        bookings []
+-functions:
+        signup
+        login
+        logout
+        add listing
+        book listing
+        unbook listing
+        create message
+        edit user
+        edit listing
+
     Navbar
         SearchBar
     RoutesLists
         Route "/"
             Homepage
+            -state: listings:Listing[]
                 ListingList
-                -props: list of listings
+                -props: listings:Listing[]
                     ListingCardLite
-                    -props: listing(photo,title,type,description,price,location,owner)
+                    -props: listing {
+                        photo: string,
+                        title: string,
+                        type: string,
+                        description: string,
+                        price: number,
+                        location: string,
+                        owner: string
+                        }
 
         Route "/listings/new"
-            NewListingForm
+            ListingForm
+            -props: fn to add a listing
 
         Route "/listings/:id"
             DetailsPage
             -props: listing
                 ListingCard
+            ListingForm
 
         Route "/login"
             LoginForm
@@ -52,7 +77,9 @@ ShareBnBApp
 
         Route "/message/inbox"
             MessagePage
+            -state: { sent: Message[], received: Message[] }
                 MessageList
+                -prop: { sent: Message[], received: Message[] }
                     Message
                 MessageForm
 
@@ -61,7 +88,7 @@ ShareBnBApp
                 MessageForm
 
 
-
+ShareBnB API class
 
 
 Wishlist
