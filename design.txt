@@ -1,0 +1,69 @@
+Requirements:
+
+Homepage - shows some listings, card with picture, name, location
+
+Search for outdoor spaces - search bar
+
+Click on a listing - show more details, booking button, link to message owner
+
+Login/signup pages
+
+Post a listing - listing form
+
+Users can message each other - message area, message form
+
+User page- edit profile, see bookings, see listings
+
+
+Component hierarchy:
+
+ShareBnBApp
+    Navbar
+        SearchBar
+    RoutesLists
+        Route "/"
+            Homepage
+                ListingList
+                -props: list of listings
+                    ListingCardLite
+                    -props: listing(photo,title,type,description,price,location,owner)
+
+        Route "/listings/new"
+            NewListingForm
+
+        Route "/listings/:id"
+            DetailsPage
+            -props: listing
+                ListingCard
+
+        Route "/login"
+            LoginForm
+
+        Route "/signup"
+            SignUpForm
+
+        Route "/profile/"
+            ProfilePage
+                ListingList
+                    ListingCard
+                BookingList
+                    ListingCard
+                ProfileForm
+
+        Route "/message/inbox"
+            MessagePage
+                MessageList
+                    Message
+                MessageForm
+
+        Route "/message/send"
+            MessagePage
+                MessageForm
+
+
+
+
+
+Wishlist
+Reviews and ratings
+
