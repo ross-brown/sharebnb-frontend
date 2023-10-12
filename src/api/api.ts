@@ -1,17 +1,17 @@
 const BASE_URL = import.meta.env.REACT_APP_BASE_URL || "http://localhost:3001";
 import {
   LoginFormInterface,
-  SignupFormInterface, ProfileFormInterface, ListingFormInterface
+  SignupFormInterface, ProfileFormInterface, UserInterface, ListingInterface, BookingInterface
 } from "../interfaces";
 
 
-
+//TODO: create a message, get a message by id, get a user's message(sent, received)
 class ShareBnbApi {
   // the token for interactive with the API will be stored here.
   //TODO: remove hard code at some point....
   static token: string = `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3QzIiwiaWF0IjoxNjk3MDQ3Njg5fQ.wGEFkpIXDZUSW6c_nR7GOUsnyXIL7axNB2NdFacOmI4`;
 
-  static async request(endpoint: string, data = {}, method = "GET") {
+  static async request(endpoint: string, data = {}, method = "GET"): Promise<any> {
     const url = new URL(`${BASE_URL}/${endpoint}`);
     const headers = {
       authorization: `Bearer ${ShareBnbApi.token}`,
@@ -39,66 +39,90 @@ class ShareBnbApi {
     return await resp.json();
   }
 
-  //TODO: MAKE SEPARATE REQUEST FUNCTION FOR MUTLIPART FORM TYPES
-  // remove content-type, DO NOT stringify the body of the request
+  /** Makes a request using multipart/form-data */
+  static async multipartRequest(endpoint: string, data: FormData, method: "POST" | "PATCH"): Promise<any> {
+    const url = new URL(`${BASE_URL}/${endpoint}`);
+    const headers = {
+      authorization: `Bearer ${ShareBnbApi.token}`,
+    };
 
+    const body = data;
+
+    const resp = await fetch(url, { method, headers, body });
+
+    if (!resp.ok) {
+      console.error("API Error:", resp.statusText, resp.status);
+      const { error } = await resp.json();
+      throw Array.isArray(error) ? error : [error];
+    }
+
+    return await resp.json();
+  }
 
   //Each API Route
 
   /** Get the current user. */
-  static async getCurrentUser(username: string) {
+  static async getCurrentUser(username: string):Promise<{user: UserInterface}> {
     const res = await this.request(`users/${username}`);
     return res.user;
   }
 
   /** Get listings (filtered by title if not undefined) */
-  static async getListings(title: string) {
+  static async getListings(title: string): Promise<{listings: ListingInterface[]}> {
     const res = await this.request(`listings`, { title });
     return res.listings;
   }
 
   /** Get details on a specifc listing by id */
-  static async getListing(id: number | string) {
+  static async getListing(id: number | string): Promise<{listing: ListingInterface}> {
     const res = await this.request(`listings/${id}`);
     return res.listing;
   }
 
-  static async createListing(data: FormData) {
-    const res = await this.request(`listings`, data, "POST");
+  /** Create a new lisitng */
+  static async createListing(data: FormData): Promise<{listing: ListingInterface}> {
+    const res = await this.multipartRequest(`listings`, data, "POST");
     return res.listing;
   }
 
-  static async updateListing(id: number | string, data: ListingFormInterface) {
-    const res = await this.request(`listings/${id}`, data, "PATCH");
+  /** Update a listing */
+  static async updateListing(id: number | string, data: FormData): Promise<{listing: ListingInterface}> {
+    const res = await this.multipartRequest(`listings/${id}`, data, "PATCH");
     return res.listing;
+  }
+
+  /** Delete a listing */
+  static async deleteListing(id: number | string): Promise<{deleted: typeof id}> {
+    const res = await this.request(`listings/${id}`, {}, "DELETE");
+    return res.deleted;
   }
 
   /** Book a listing */
-  static async bookAListing(id: number | string) {
+  static async bookAListing(id: number | string): Promise<{booking: BookingInterface}> {
     const res = await this.request(`listings/${id}/book`, {}, "POST");
     return res.booking;
   }
 
   /** Cancel a booking */
-  static async cancelBooking(id: number | string) {
+  static async cancelBooking(id: number | string): Promise<{cancelled: typeof id}> {
     const res = await this.request(`listings/${id}/book`, {}, "DELETE");
     return res.cancelled;
   }
 
   /** Get token for login from username, password */
-  static async login(data: LoginFormInterface) {
+  static async login(data: LoginFormInterface): Promise<{token: string}> {
     const res = await this.request(`auth/token`, data, "POST");
     return res.token;
   }
 
   /** Get token after signing up with form data */
-  static async signup(data: SignupFormInterface) {
+  static async signup(data: SignupFormInterface): Promise<{token: string}> {
     const res = await this.request(`auth/register`, data, "POST");
     return res.token;
   }
 
   /** Save user profile with form data */
-  static async saveProfile(username: string, data: ProfileFormInterface) {
+  static async saveProfile(username: string, data: ProfileFormInterface): Promise<{user: Partial<UserInterface>}> {
     const res = await this.request(`users/${username}`, data, "PATCH");
     return res.user;
   }

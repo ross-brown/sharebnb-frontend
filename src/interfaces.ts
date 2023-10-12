@@ -26,9 +26,32 @@ interface ListingFormInterface {
   // location: string;
 }
 
+interface UserInterface {
+  username: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  booking?: BookingInterface[];
+  listings?: ListingInterface[];
+}
 
+interface BookingInterface {
+  username: string;
+  listingId: string;
+}
+
+interface ListingInterface {
+  id: string;
+  title: string;
+  type: string;
+  price: number | string;
+  description: string;
+  location: string;
+  photoUrl?: string;
+  ownerUsername: string;
+}
 
 export type {
   LoginFormInterface, SignupFormInterface,
-  ProfileFormInterface, ListingFormInterface
+  ProfileFormInterface, ListingFormInterface, UserInterface, BookingInterface, ListingInterface
 };
