@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react';
 import { CurrentUserInterface, LoginFormInterface, SignupFormInterface } from './interfaces';
 import ShareBnbApi from './api/api';
 import Navbar from './Navbar';
-import UserContext from './userContext';
+import { UserContext, SearchContext } from './contexts';
 import decode from "jwt-decode";
 
 function App() {
@@ -14,7 +14,7 @@ function App() {
     isLoaded: false
   });
   const [token, setToken] = useState<string | null>(localStorage.getItem("token"));
-
+  const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(function fetchUserInfo() {
     async function getUser() {
@@ -41,6 +41,7 @@ function App() {
       : localStorage.removeItem("token");
   }, [token]);
 
+
   async function login(loginData: LoginFormInterface) {
     const token = await ShareBnbApi.login(loginData);
     setToken(token);
@@ -61,8 +62,10 @@ function App() {
       <h1>ShareBnB</h1>
       <BrowserRouter>
         <UserContext.Provider value={{ currentUser: currentUser.data, setCurrentUser }}>
-          <Navbar logout={logout} />
-          <RoutesList login={login} signup={signup} />
+          <SearchContext.Provider value={searchTerm}>
+            <Navbar logout={logout} search={setSearchTerm} />
+            <RoutesList login={login} signup={signup} />
+          </SearchContext.Provider>
         </UserContext.Provider>
       </BrowserRouter>
     </div >

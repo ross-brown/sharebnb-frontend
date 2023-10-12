@@ -6,18 +6,19 @@ import SignupForm from "./SignupForm";
 import { LoginFormInterface, SignupFormInterface } from "./interfaces";
 import ListingForm from "./ListingForm";
 import { useContext } from "react";
-import UserContext from "./userContext";
+import {UserContext} from "./contexts";
 
 
 interface RoutesListProps {
     login: (data: LoginFormInterface) => void;
     signup: (data: SignupFormInterface) => void;
+
     //add signup and currectUser
 }
 
 
 function RoutesList({ login, signup }: RoutesListProps) {
-    const { currentUser } = useContext(UserContext)!;
+    const { currentUser } = useContext(UserContext);
 
 
     return (

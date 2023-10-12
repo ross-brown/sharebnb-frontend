@@ -71,7 +71,7 @@ class ShareBnbApi {
   /** Get listings (filtered by title if not undefined) */
   static async getListings(title: string | undefined): Promise<ListingInterface[]> {
     let res;
-    title === undefined
+    title === ""
       ? res = await this.request("listings")
       : res = await this.request("listings", { title });
     // const res = await this.request(`listings`, { title });

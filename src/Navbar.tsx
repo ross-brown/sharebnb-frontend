@@ -1,14 +1,16 @@
 import { useContext } from "react";
 import { Link, NavLink } from "react-router-dom";
-import UserContext from "./userContext";
+import {UserContext} from "./contexts";
+import SearchForm from "./SearchForm";
 
 interface NavbarProps {
     logout: () => void;
+    search: (term:string) => void;
 }
 
 
-function Navbar({ logout }: NavbarProps) {
-    const { currentUser } = useContext(UserContext)!;
+function Navbar({ logout, search }: NavbarProps) {
+    const { currentUser } = useContext(UserContext);
 
 
     function loggedOutNav() {
@@ -40,6 +42,7 @@ function Navbar({ logout }: NavbarProps) {
     return (
         <nav>
             <Link to="/">ShareBnB</Link>
+            <SearchForm search={search} />
             {currentUser ? loggedInNav() : loggedOutNav()}
         </nav>
     );
