@@ -12,6 +12,11 @@ interface NavbarProps {
 function Navbar({ logout, search }: NavbarProps) {
     const { currentUser } = useContext(UserContext);
 
+    const currentUrl = new URL(window.location.href)
+    function renderSearchBar() {
+        return currentUrl.pathname === "/"
+    }
+
 
     function loggedOutNav() {
         return (
@@ -30,6 +35,9 @@ function Navbar({ logout, search }: NavbarProps) {
         return (
             <ul>
                 <li>
+                    <NavLink to="/messages">Messages</NavLink>
+                </li>
+                <li>
                     <NavLink to="/listings/new">Create a Listing</NavLink>
                 </li>
                 <li>
@@ -42,7 +50,7 @@ function Navbar({ logout, search }: NavbarProps) {
     return (
         <nav>
             <Link to="/">ShareBnB</Link>
-            <SearchForm search={search} />
+            {renderSearchBar() && <SearchForm search={search} />}
             {currentUser ? loggedInNav() : loggedOutNav()}
         </nav>
     );

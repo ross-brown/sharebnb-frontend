@@ -56,8 +56,16 @@ interface CurrentUserInterface {
   data: UserInterface | null;
 }
 
+interface MessageInterface {
+  id: string;
+  sender: string;
+  recipient: string;
+  body: string;
+  sentAt: string;
+}
+
 export type {
   LoginFormInterface, SignupFormInterface,
   ProfileFormInterface, ListingFormInterface, UserInterface,
-   BookingInterface, ListingInterface, CurrentUserInterface
+   BookingInterface, ListingInterface, CurrentUserInterface, MessageInterface
 };

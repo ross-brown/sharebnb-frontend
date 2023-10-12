@@ -6,7 +6,8 @@ import SignupForm from "./SignupForm";
 import { LoginFormInterface, SignupFormInterface } from "./interfaces";
 import ListingForm from "./ListingForm";
 import { useContext } from "react";
-import {UserContext} from "./contexts";
+import { UserContext } from "./contexts";
+import MessagePage from "./MessagePage";
 
 
 interface RoutesListProps {
@@ -30,7 +31,10 @@ function RoutesList({ login, signup }: RoutesListProps) {
                     <Route path="/login" element={<LoginForm login={login} />} />
                     <Route path="/signup" element={<SignupForm signup={signup} />} />
                 </>
-                : <Route path="/listings/new" element={<ListingForm />} />
+                : <>
+                    <Route path="/listings/new" element={<ListingForm />} />
+                    <Route path="/messages" element={<MessagePage />} />
+                </>
             }
             <Route path="*" element={<NotFound />} />
         </Routes>
