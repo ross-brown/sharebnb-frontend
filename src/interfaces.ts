@@ -19,11 +19,10 @@ interface ProfileFormInterface {
 
 interface ListingFormInterface {
   title: string;
-  // type: string;
-  photo: File;
-  // price: number | string;
-  // description: string;
-  // location: string;
+  type: string;
+  price: string;
+  description: string;
+  location: string;
 }
 
 interface UserInterface {
@@ -51,7 +50,14 @@ interface ListingInterface {
   ownerUsername: string;
 }
 
+
+interface CurrentUserInterface {
+  isLoaded: boolean;
+  data: UserInterface | null;
+}
+
 export type {
   LoginFormInterface, SignupFormInterface,
-  ProfileFormInterface, ListingFormInterface, UserInterface, BookingInterface, ListingInterface
+  ProfileFormInterface, ListingFormInterface, UserInterface,
+   BookingInterface, ListingInterface, CurrentUserInterface
 };

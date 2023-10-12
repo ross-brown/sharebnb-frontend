@@ -2,10 +2,10 @@ import { Link } from "react-router-dom";
 import { ListingInterface } from "./interfaces";
 
 
-function ListingCard({id, title, description, price, location, type, photoUrl, ownerUsername}:ListingInterface){
+function ListingCard({ id, title, description, price, location, type, photoUrl, ownerUsername }: ListingInterface) {
     return (
         <div>
-            <img src={`${photoUrl}`}/>
+            <img src={`${photoUrl}`} width="250px" />
             <h3>{title}</h3>
             <p>{description}</p>
             <p>{type}</p>
@@ -14,7 +14,7 @@ function ListingCard({id, title, description, price, location, type, photoUrl, o
             <p>Hosted by: {ownerUsername}</p>
             <Link to={`/listings/${id}`}>More details</Link>
         </div>
-    )
+    );
 
 }
 

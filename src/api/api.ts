@@ -19,16 +19,16 @@ class ShareBnbApi {
     };
 
     url.search = (method === "GET")
-    ? new URLSearchParams(data).toString()
-    : "";
+      ? new URLSearchParams(data).toString()
+      : "";
 
     // set to undefined since the body property cannot exist on a GET method
     const body = (method !== "GET")
-    ? JSON.stringify(data)
-    : undefined;
+      ? JSON.stringify(data)
+      : undefined;
 
     const resp = await fetch(url, { method, body, headers });
-    console.log("fetch request resp=", resp)
+    console.log("fetch request resp=", resp);
 
     //fetch API does not throw an error, have to dig into the resp for msgs
     if (!resp.ok) {
@@ -63,72 +63,72 @@ class ShareBnbApi {
   //Each API Route
 
   /** Get the current user. */
-  static async getCurrentUser(username: string):Promise<{user: UserInterface}> {
+  static async getCurrentUser(username: string): Promise<UserInterface> {
     const res = await this.request(`users/${username}`);
     return res.user;
   }
 
   /** Get listings (filtered by title if not undefined) */
-  static async getListings(title: string | undefined): Promise<{listings: ListingInterface[]}> {
+  static async getListings(title: string | undefined): Promise<ListingInterface[]> {
     let res;
     title === undefined
-    ? res = await this.request("listings")
-    : res = await this.request("listings", {title})
+      ? res = await this.request("listings")
+      : res = await this.request("listings", { title });
     // const res = await this.request(`listings`, { title });
-    console.log("get listings res=", res)
+    console.log("get listings res=", res);
     return res.listings;
   }
 
   /** Get details on a specifc listing by id */
-  static async getListing(id: number | string): Promise<{listing: ListingInterface}> {
+  static async getListing(id: number | string): Promise<ListingInterface> {
     const res = await this.request(`listings/${id}`);
     return res.listing;
   }
 
   /** Create a new lisitng */
-  static async createListing(data: FormData): Promise<{listing: ListingInterface}> {
+  static async createListing(data: FormData): Promise<ListingInterface> {
     const res = await this.multipartRequest(`listings`, data, "POST");
     return res.listing;
   }
 
   /** Update a listing */
-  static async updateListing(id: number | string, data: FormData): Promise<{listing: ListingInterface}> {
+  static async updateListing(id: number | string, data: FormData): Promise<ListingInterface> {
     const res = await this.multipartRequest(`listings/${id}`, data, "PATCH");
     return res.listing;
   }
 
   /** Delete a listing */
-  static async deleteListing(id: number | string): Promise<{deleted: typeof id}> {
+  static async deleteListing(id: number | string): Promise<typeof id> {
     const res = await this.request(`listings/${id}`, {}, "DELETE");
     return res.deleted;
   }
 
   /** Book a listing */
-  static async bookAListing(id: number | string): Promise<{booking: BookingInterface}> {
+  static async bookAListing(id: number | string): Promise<BookingInterface> {
     const res = await this.request(`listings/${id}/book`, {}, "POST");
     return res.booking;
   }
 
   /** Cancel a booking */
-  static async cancelBooking(id: number | string): Promise<{cancelled: typeof id}> {
+  static async cancelBooking(id: number | string): Promise<typeof id> {
     const res = await this.request(`listings/${id}/book`, {}, "DELETE");
     return res.cancelled;
   }
 
   /** Get token for login from username, password */
-  static async login(data: LoginFormInterface): Promise<{token: string}> {
+  static async login(data: LoginFormInterface): Promise<string> {
     const res = await this.request(`auth/token`, data, "POST");
     return res.token;
   }
 
   /** Get token after signing up with form data */
-  static async signup(data: SignupFormInterface): Promise<{token: string}> {
+  static async signup(data: SignupFormInterface): Promise<string> {
     const res = await this.request(`auth/register`, data, "POST");
     return res.token;
   }
 
   /** Save user profile with form data */
-  static async saveProfile(username: string, data: ProfileFormInterface): Promise<{user: Partial<UserInterface>}> {
+  static async saveProfile(username: string, data: ProfileFormInterface): Promise<Partial<UserInterface>> {
     const res = await this.request(`users/${username}`, data, "PATCH");
     return res.user;
   }

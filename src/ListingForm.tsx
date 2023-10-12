@@ -1,12 +1,14 @@
 import { useState } from "react";
 import ShareBnbApi from "./api/api";
-
+import { ListingFormInterface } from "./interfaces";
+import { useNavigate } from "react-router-dom";
 
 
 
 
 function ListingForm() {
-  const [formData, setFormData] = useState({
+  const navigate = useNavigate();
+  const [formData, setFormData] = useState<ListingFormInterface>({
     title: "",
     type: "",
     description: "",
@@ -14,13 +16,17 @@ function ListingForm() {
     location: ""
   });
   const [photo, setPhoto] = useState<File | null>(null);
+  const [formErrors, setFormErrors] = useState<[] | string>([]);
 
-  
+
   function handleFileChange(evt: React.ChangeEvent<HTMLInputElement>) {
     console.log("evt.target.file IS:", evt.target.files);
 
-    if (!evt.target.files) return;
-    setPhoto(evt.target.files[0]);
+    if (!evt.target.files) {
+      setPhoto(null);
+    } else {
+      setPhoto(evt.target.files[0]);
+    }
   }
 
   function handleChange(evt: React.ChangeEvent<HTMLInputElement>) {
@@ -32,17 +38,23 @@ function ListingForm() {
 
   async function handleSubmit(evt: React.FormEvent) {
     evt.preventDefault();
-
     const listingData = new FormData();
-    listingData.append("photo", photo);
-    listingData.append("title", formData.title);
-    listingData.append("type", formData.type);
-    listingData.append("location", formData.location);
-    listingData.append("price", formData.price);
-    listingData.append("description", formData.description);
 
-    const newListingData = await ShareBnbApi.createListing(listingData);
-    console.log("value from api to create listing", newListingData);
+    if (photo) {
+      listingData.append("photo", photo);
+    }
+
+    for (const key in formData) {
+      listingData.append(key, formData[key as keyof ListingFormInterface]);
+    }
+
+    try {
+      await ShareBnbApi.createListing(listingData);
+      navigate("/");
+    } catch (error) {
+      console.error("error creating listing", error[0].message);
+      setFormErrors(error[0].message)
+    }
   }
 
 
@@ -80,6 +92,7 @@ function ListingForm() {
         name="location"
         onChange={handleChange}
         value={formData.location} />
+        {formErrors.length > 0 && "NO PHOTO"}
       <button>Submit</button>
     </form>
   );
