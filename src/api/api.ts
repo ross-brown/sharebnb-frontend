@@ -19,15 +19,16 @@ class ShareBnbApi {
     };
 
     url.search = (method === "GET")
-      ? new URLSearchParams(data).toString()
-      : "";
+    ? new URLSearchParams(data).toString()
+    : "";
 
     // set to undefined since the body property cannot exist on a GET method
     const body = (method !== "GET")
-      ? JSON.stringify(data)
-      : undefined;
+    ? JSON.stringify(data)
+    : undefined;
 
     const resp = await fetch(url, { method, body, headers });
+    console.log("fetch request resp=", resp)
 
     //fetch API does not throw an error, have to dig into the resp for msgs
     if (!resp.ok) {
@@ -68,8 +69,13 @@ class ShareBnbApi {
   }
 
   /** Get listings (filtered by title if not undefined) */
-  static async getListings(title: string): Promise<{listings: ListingInterface[]}> {
-    const res = await this.request(`listings`, { title });
+  static async getListings(title: string | undefined): Promise<{listings: ListingInterface[]}> {
+    let res;
+    title === undefined
+    ? res = await this.request("listings")
+    : res = await this.request("listings", {title})
+    // const res = await this.request(`listings`, { title });
+    console.log("get listings res=", res)
     return res.listings;
   }
 
