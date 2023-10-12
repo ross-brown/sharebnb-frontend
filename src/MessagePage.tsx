@@ -22,7 +22,7 @@ function MessagePage() {
     async function getMessages(): Promise<void> {
         if (currentUser) {
             const sentRes = ShareBnbApi.getSentMsgs(currentUser.username);
-            const recdRes = ShareBnbApi.getSentMsgs(currentUser.username);
+            const recdRes = ShareBnbApi.getRecvdMsgs(currentUser.username);
             const [sent, received] = await Promise.all([sentRes, recdRes]);
             setMessages({ sent, received });
         }
