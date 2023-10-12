@@ -17,7 +17,7 @@ interface RoutesListProps {
 
 
 function RoutesList({ login, signup }: RoutesListProps) {
-    const { currentUser } = useContext(UserContext);
+    const { currentUser } = useContext(UserContext)!;
 
 
     return (

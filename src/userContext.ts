@@ -3,7 +3,8 @@ import { CurrentUserInterface, UserInterface } from "./interfaces";
 
 
 interface UserContextInterface {
-  currentUser: CurrentUserInterface
+  currentUser: UserInterface | null;
+  setCurrentUser: (data: CurrentUserInterface) => void;
 }
 
 

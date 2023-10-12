@@ -8,7 +8,7 @@ interface NavbarProps {
 
 
 function Navbar({ logout }: NavbarProps) {
-    const { currentUser } = useContext(UserContext);
+    const { currentUser } = useContext(UserContext)!;
 
 
     function loggedOutNav() {
