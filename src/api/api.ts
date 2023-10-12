@@ -1,7 +1,7 @@
 const BASE_URL = import.meta.env.REACT_APP_BASE_URL || "http://localhost:3001";
 import {
   LoginFormInterface, MessageInterface,
-  SignupFormInterface, ProfileFormInterface, UserInterface, ListingInterface, BookingInterface
+  SignupFormInterface, ProfileFormInterface, UserInterface, ListingInterface, BookingInterface, MessageFormInterface
 } from "../interfaces";
 
 
@@ -135,14 +135,20 @@ class ShareBnbApi {
 
   /** Get user's sent messages */
   static async getSentMsgs(username: string): Promise<MessageInterface[]> {
-    const res = await this.request(`users/${username}/sent`)
+    const res = await this.request(`users/${username}/sent`);
     return res.messages;
   }
 
   /** Get user's received messages */
   static async getRecvdMsgs(username: string): Promise<MessageInterface[]> {
-    const res = await this.request(`users/${username}/inbox`)
+    const res = await this.request(`users/${username}/inbox`);
     return res.messages;
+  }
+
+  /** Send a message to a user */
+  static async sendMessage(data: MessageFormInterface): Promise<MessageInterface> {
+    const res = await this.request(`messages`, data, "POST");
+    return res.message;
   }
 
 }

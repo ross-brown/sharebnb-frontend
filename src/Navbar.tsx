@@ -14,7 +14,7 @@ function Navbar({ logout, search }: NavbarProps) {
     const location = useLocation();
 
     function renderSearch() {
-        return location.pathname === "/";
+        return location.pathname === "/" || /listings\/\d+/g.test(location.pathname);
     }
 
     function loggedOutNav() {

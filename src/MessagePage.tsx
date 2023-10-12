@@ -1,8 +1,9 @@
 import { useContext, useState, useEffect } from "react";
 import { UserContext } from "./contexts";
 import ShareBnbApi from "./api/api";
-import { MessageInterface } from "./interfaces";
+import { MessageFormInterface, MessageInterface } from "./interfaces";
 import MessageList from "./MessageList";
+import MessageForm from "./MessageForm";
 
 interface MessagesInterface {
     sent: MessageInterface[];
@@ -32,16 +33,24 @@ function MessagePage() {
         setDisplayOutbox(display => !display);
     }
 
+    async function send(formData: MessageFormInterface) {
+        const message = await ShareBnbApi.sendMessage(formData);
+        setMessages(m => ({ ...m, sent: [...m.sent, message] }));
+    }
+
     return (
         <div>
             <h2>Messages</h2>
             <h3>{displayOutbox ? "Outbox" : "Inbox"}</h3>
             <div>
                 <MessageList messages={displayOutbox ? messages.sent : messages.received} />
+                <button onClick={toggleMessages}>
+                    {displayOutbox ? " See Inbox" : "See Outbox"}
+                </button>
             </div>
-            <button onClick={toggleMessages}>
-                {displayOutbox ? " See Inbox" : "See Outbox"}
-            </button>
+            <div>
+                <MessageForm send={send} />
+            </div>
         </div>
     );
 }

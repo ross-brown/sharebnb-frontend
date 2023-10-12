@@ -25,6 +25,11 @@ interface ListingFormInterface {
   location: string;
 }
 
+interface MessageFormInterface {
+  recipient: string;
+  body: string;
+}
+
 interface UserInterface {
   username: string;
   firstName: string;
@@ -64,8 +69,10 @@ interface MessageInterface {
   sentAt: string;
 }
 
+
+
 export type {
-  LoginFormInterface, SignupFormInterface,
+  LoginFormInterface, SignupFormInterface, MessageFormInterface,
   ProfileFormInterface, ListingFormInterface, UserInterface,
-   BookingInterface, ListingInterface, CurrentUserInterface, MessageInterface
+  BookingInterface, ListingInterface, CurrentUserInterface, MessageInterface
 };
