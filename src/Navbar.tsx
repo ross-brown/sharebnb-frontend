@@ -1,22 +1,21 @@
 import { useContext } from "react";
-import { Link, NavLink } from "react-router-dom";
-import {UserContext} from "./contexts";
+import { Link, NavLink, useLocation } from "react-router-dom";
+import { UserContext } from "./contexts";
 import SearchForm from "./SearchForm";
 
 interface NavbarProps {
     logout: () => void;
-    search: (term:string) => void;
+    search: (term: string) => void;
 }
 
 
 function Navbar({ logout, search }: NavbarProps) {
     const { currentUser } = useContext(UserContext);
+    const location = useLocation();
 
-    const currentUrl = new URL(window.location.href)
-    function renderSearchBar() {
-        return currentUrl.pathname === "/"
+    function renderSearch() {
+        return location.pathname === "/";
     }
-
 
     function loggedOutNav() {
         return (
@@ -50,7 +49,7 @@ function Navbar({ logout, search }: NavbarProps) {
     return (
         <nav>
             <Link to="/">ShareBnB</Link>
-            {renderSearchBar() && <SearchForm search={search} />}
+            {renderSearch() && <SearchForm search={search} />}
             {currentUser ? loggedInNav() : loggedOutNav()}
         </nav>
     );
