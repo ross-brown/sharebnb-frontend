@@ -106,7 +106,7 @@ function App() {
           </SearchContext.Provider>
         </UserContext.Provider>
       </BrowserRouter>
-    </div >
+    </div>
   );
 }
 
