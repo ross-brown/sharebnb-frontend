@@ -1,7 +1,7 @@
 import { useContext, useState, useEffect } from "react";
-import { UserContext } from "./contexts";
-import ShareBnbApi from "./api/api";
-import { MessageFormInterface, MessageInterface } from "./interfaces";
+import { UserContext } from "../contexts";
+import ShareBnbApi from "../api/api";
+import { MessageFormInterface, MessageInterface } from "../interfaces";
 import MessageList from "./MessageList";
 import MessageForm from "./MessageForm";
 

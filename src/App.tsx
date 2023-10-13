@@ -7,6 +7,19 @@ import ShareBnbApi from './api/api';
 import Navbar from './Navbar';
 import { UserContext, SearchContext } from './contexts';
 import decode from "jwt-decode";
+import Loading from './common/Loading';
+
+
+/** ShareBnB application
+ *
+ * State:
+ * - currentUser: user obj from API to tell if logged in or not
+ * - token: JWT token for authenticated users
+ * - searchTerm: search term from the nav bar
+ * - bookings: for the current user, this is their current bookings
+ *
+ * App -> { RoutesList, Navbar }
+ */
 
 function App() {
   const [currentUser, setCurrentUser] = useState<CurrentUserInterface>({
@@ -26,7 +39,7 @@ function App() {
           const currentUser = await ShareBnbApi.getCurrentUser(username);
 
           setCurrentUser({ data: currentUser, isLoaded: true });
-          setBookings(new Set(currentUser.bookings.map(b=>b.id)))
+          setBookings(new Set(currentUser.bookings.map(b => b.id)));
         } catch (error) {
           setCurrentUser({ data: null, isLoaded: true });
         }
@@ -75,9 +88,10 @@ function App() {
     setBookings(bookings => new Set([...bookings].filter(i => i !== id)));
   }
 
+  if (!currentUser.isLoaded) return <Loading />;
+
   return (
     <div>
-      <h1>ShareBnB</h1>
       <BrowserRouter>
         <UserContext.Provider value={{
           currentUser: currentUser.data,

@@ -40,6 +40,9 @@ function Navbar({ logout, search }: NavbarProps) {
                     <NavLink to="/listings/new">Create a Listing</NavLink>
                 </li>
                 <li>
+                    <NavLink to="/profile">Profile</NavLink>
+                </li>
+                <li>
                     <NavLink to="/" onClick={logout}>Log out</NavLink>
                 </li>
             </ul>

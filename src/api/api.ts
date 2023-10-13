@@ -5,11 +5,10 @@ import {
 } from "../interfaces";
 
 
-//TODO: create a message, get a message by id, get a user's message(sent, received)
+//TODO:get a message by id
 class ShareBnbApi {
   // the token for interactive with the API will be stored here.
-  //TODO: remove hard code at some point....
-  static token: string = `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3QzIiwiaWF0IjoxNjk3MDQ3Njg5fQ.wGEFkpIXDZUSW6c_nR7GOUsnyXIL7axNB2NdFacOmI4`;
+  static token: string;
 
   static async request(endpoint: string, data = {}, method = "GET"): Promise<any> {
     const url = new URL(`${BASE_URL}/${endpoint}`);

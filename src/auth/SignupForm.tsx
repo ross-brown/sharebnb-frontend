@@ -1,9 +1,15 @@
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { SignupFormInterface } from "./interfaces";
+import { SignupFormInterface } from "../interfaces";
+import Alert from "../common/Alert";
 
 
-function SignupForm({ signup }) {
+interface SignupFormProps {
+  signup: (data: SignupFormInterface) => Promise<void>;
+}
+
+
+function SignupForm({ signup }: SignupFormProps) {
   const navigate = useNavigate();
   const [formData, setFormData] = useState<SignupFormInterface>({
     username: "",
@@ -27,8 +33,8 @@ function SignupForm({ signup }) {
     try {
       await signup(formData);
       navigate("/");
-    } catch (error) {
-      setFormErrors(error);
+    } catch (errors) {
+      setFormErrors(errors[0].message);
     }
   }
 
@@ -89,11 +95,11 @@ function SignupForm({ signup }) {
             required
           />
         </div>
-        {formErrors.length > 0 ? "ERROR" : ""}
         <div>
           <button>Log In</button>
         </div>
       </form>
+      {formErrors.length > 0 && <Alert errors={formErrors} />}
     </div>
   );
 }

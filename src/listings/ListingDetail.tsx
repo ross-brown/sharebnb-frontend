@@ -1,8 +1,8 @@
 import { useParams } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
-import ShareBnbApi from "./api/api";
-import { ListingInterface } from "./interfaces";
-import { UserContext } from "./contexts";
+import ShareBnbApi from "../api/api";
+import { ListingInterface } from "../interfaces";
+import { UserContext } from "../contexts";
 
 function ListingDetail() {
   const { id } = useParams();

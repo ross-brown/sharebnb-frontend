@@ -1,6 +1,6 @@
 import { useState } from "react";
-import ShareBnbApi from "./api/api";
-import { ListingFormInterface } from "./interfaces";
+import ShareBnbApi from "../api/api";
+import { ListingFormInterface } from "../interfaces";
 import { useNavigate } from "react-router-dom";
 
 
@@ -53,46 +53,58 @@ function ListingForm() {
       navigate("/");
     } catch (error) {
       console.error("error creating listing", error[0].message);
-      setFormErrors(error[0].message)
+      setFormErrors(error[0].message);
     }
   }
 
 
   return (
     <form onSubmit={handleSubmit}>
-      <label htmlFor="file">Photo: </label>
-      <input
-        id="file"
-        type="file"
-        name="photo"
-        accept="image/*"
-        onChange={handleFileChange} />
-      <label htmlFor="file">Title: </label>
-      <input
-        name="title"
-        onChange={handleChange}
-        value={formData.title} />
-      <label htmlFor="file">Type: </label>
-      <input
-        name="type"
-        onChange={handleChange}
-        value={formData.type} />
-      <label htmlFor="file">Description: </label>
-      <input
-        name="description"
-        onChange={handleChange}
-        value={formData.description} />
-      <label htmlFor="file">Price: </label>
-      <input
-        name="price"
-        onChange={handleChange}
-        value={formData.price} />
-      <label htmlFor="file">Location: </label>
-      <input
-        name="location"
-        onChange={handleChange}
-        value={formData.location} />
-        {formErrors.length > 0 && "NO PHOTO"}
+      <div>
+        <label htmlFor="file">Photo: </label>
+        <input
+          id="file"
+          type="file"
+          name="photo"
+          accept="image/*"
+          onChange={handleFileChange} />
+      </div>
+      <div>
+        <label htmlFor="file">Title: </label>
+        <input
+          name="title"
+          onChange={handleChange}
+          value={formData.title} />
+      </div>
+      <div>
+        <label htmlFor="file">Type: </label>
+        <input
+          name="type"
+          onChange={handleChange}
+          value={formData.type} />
+      </div>
+      <div>
+        <label htmlFor="file">Description: </label>
+        <input
+          name="description"
+          onChange={handleChange}
+          value={formData.description} />
+      </div>
+      <div>
+        <label htmlFor="file">Price: </label>
+        <input
+          name="price"
+          onChange={handleChange}
+          value={formData.price} />
+      </div>
+      <div>
+        <label htmlFor="file">Location: </label>
+        <input
+          name="location"
+          onChange={handleChange}
+          value={formData.location} />
+      </div>
+      {formErrors.length > 0 && "NO PHOTO"}
       <button>Submit</button>
     </form>
   );

@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { LoginFormInterface } from "./interfaces";
+import { LoginFormInterface } from "../interfaces";
+import Alert from "../common/Alert";
 
 interface LoginFormProps {
-  login: (data: LoginFormInterface) => void
+  login: (data: LoginFormInterface) => Promise<void>;
 }
 
 function LoginForm({ login }: LoginFormProps) {
@@ -25,8 +26,8 @@ function LoginForm({ login }: LoginFormProps) {
     try {
       await login(formData);
       navigate("/");
-    } catch (error) {
-      setFormErrors(error);
+    } catch (errors) {
+      setFormErrors(errors[0].message);
     }
   }
 
@@ -56,11 +57,11 @@ function LoginForm({ login }: LoginFormProps) {
             required
           />
         </div>
-        {formErrors.length > 0 ? "ERROR": ""}
         <div>
           <button>Log In</button>
         </div>
       </form>
+      {formErrors.length > 0 && <Alert errors={formErrors} />}
     </div>
   );
 }

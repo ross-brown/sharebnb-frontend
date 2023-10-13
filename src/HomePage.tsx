@@ -1,5 +1,5 @@
 import { useEffect, useState, useContext } from "react";
-import ListingList from "./ListingList";
+import ListingList from "./listings/ListingList";
 import { ListingInterface } from "./interfaces";
 import ShareBnbApi from "./api/api";
 import { SearchContext } from "./contexts";

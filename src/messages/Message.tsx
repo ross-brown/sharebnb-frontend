@@ -1,4 +1,4 @@
-import { MessageInterface } from "./interfaces";
+import { MessageInterface } from "../interfaces";
 
 
 function Message({ id, sender, recipient, body, sentAt }: MessageInterface) {

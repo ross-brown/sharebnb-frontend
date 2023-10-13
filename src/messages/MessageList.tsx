@@ -1,5 +1,5 @@
 import Message from "./Message";
-import { MessageInterface } from "./interfaces";
+import { MessageInterface } from "../interfaces";
 
 interface MessageListProps {
   messages: MessageInterface[];

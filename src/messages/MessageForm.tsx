@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { MessageFormInterface } from "./interfaces";
+import { MessageFormInterface } from "../interfaces";
 
 interface MessageFormProps {
   send: (formData: MessageFormInterface) => Promise<void>;

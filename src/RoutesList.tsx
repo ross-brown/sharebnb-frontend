@@ -1,24 +1,27 @@
 import { Route, Routes } from "react-router-dom";
 import HomePage from "./HomePage";
-import NotFound from "./NotFound";
-import LoginForm from "./LoginForm";
-import SignupForm from "./SignupForm";
+import NotFound from "./common/NotFound";
+import LoginForm from "./auth/LoginForm";
+import SignupForm from "./auth/SignupForm";
 import { LoginFormInterface, SignupFormInterface } from "./interfaces";
-import ListingForm from "./ListingForm";
+import ListingForm from "./listings/ListingForm";
 import { useContext } from "react";
 import { UserContext } from "./contexts";
-import MessagePage from "./MessagePage";
-import ListingDetail from "./ListingDetail";
-import ProfilePage from "./ProfilePage";
-
+import MessagePage from "./messages/MessagePage";
+import ListingDetail from "./listings/ListingDetail";
+import ProfilePage from "./profile/ProfilePage";
 
 interface RoutesListProps {
-    login: (data: LoginFormInterface) => void;
-    signup: (data: SignupFormInterface) => void;
-
-    //add signup and currectUser
+    login: (data: LoginFormInterface) => Promise<void>;
+    signup: (data: SignupFormInterface) => Promise<void>;
 }
 
+/** Site-wide routes.
+ *
+ * Parts of site should only be visitable when logged in.
+ *
+ * Non-matched routes render a NotFound page.
+ */
 
 function RoutesList({ login, signup }: RoutesListProps) {
     const { currentUser } = useContext(UserContext);
@@ -37,7 +40,7 @@ function RoutesList({ login, signup }: RoutesListProps) {
                 : <>
                     <Route path="/listings/new" element={<ListingForm />} />
                     <Route path="/messages" element={<MessagePage />} />
-                    <Route path="/profile" element={<ProfilePage/>} />
+                    <Route path="/profile" element={<ProfilePage />} />
                 </>
             }
             <Route path="*" element={<NotFound />} />
