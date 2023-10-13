@@ -1,5 +1,4 @@
 import { BrowserRouter } from 'react-router-dom';
-import './App.css';
 import RoutesList from './RoutesList';
 import { useState, useEffect } from 'react';
 import { CurrentUserInterface, LoginFormInterface, SignupFormInterface } from './interfaces';

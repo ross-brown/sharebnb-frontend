@@ -4,6 +4,7 @@ import { ListingInterface } from "./interfaces";
 import ShareBnbApi from "./api/api";
 import { SearchContext } from "./contexts";
 import Loading from "./common/Loading";
+import SplashPage from "./SplashPage";
 
 function HomePage() {
     const [listings, setListings] = useState<ListingInterface[] | null>(null);
@@ -24,6 +25,7 @@ function HomePage() {
 
     return (
         <>
+            <SplashPage/>
             <ListingList listings={listings} />;
         </>
     );
