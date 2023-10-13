@@ -21,8 +21,6 @@ function SearchForm({ search }: SearchFormProps) {
     }
 
     return (
-        <>
-        <h2>ShareB&B your space</h2>
         <form className="ps-5 relative" onSubmit={handleSubmit}>
             <input value={searchTerm} onChange={handleChange} className="w-full py-2 px-3 rounded-3xl shadow-md text-neutral-900 focus:ring
                     focus:ring-green-500 focus:ring-opacity-50 focus:outline-none"></input>
@@ -33,7 +31,6 @@ function SearchForm({ search }: SearchFormProps) {
                 </svg>
             </button>
         </form>
-                        </>
     );
 }
 
