@@ -9,7 +9,7 @@ function MessageList({ messages }: MessageListProps) {
 
 
   if (messages.length === 0) {
-    return "loser";
+    return "No messages here...";
   }
 
 
