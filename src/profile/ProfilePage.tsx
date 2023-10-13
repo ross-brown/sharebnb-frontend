@@ -12,6 +12,7 @@ function ProfilePage() {
     return (
         <>
             <div>
+                <h2>Your profile</h2>
                 <ProfileForm />
             </div>
             <div>
