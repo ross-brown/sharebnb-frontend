@@ -99,9 +99,14 @@ Reviews and ratings
 
 
 
-THRUSDAY TODO:
-Write ALL components
-Have app fully functional, but looks ugly
-hopefully not run into any issues with READING/DELETING from the bucket from the frontend
+Friday TODO:
+Profile Form
+Profile nav link
+Finalize design ideas -> tailwind until 1pm/2pm
+Delete listing
+Book your own lisitng??
+Seed more listings??
+Responsive styling
+Random beds and baths number of pools
 
 STRETCH: start styling everything
