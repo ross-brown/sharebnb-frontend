@@ -42,13 +42,13 @@ function MessagePage() {
         <div className="grid lg:grid-cols-3">
             <div className="col-span-1 lg:border-r">
                 <h2 className="text-xl my-4 font-bold text-neutral-800 text-center">Messages</h2>
-                <div className="flex justify-around items-center py-2 px-2">
-                    <h3 className="text-xl mb-4 font-semibold text-neutral-800">{displayOutbox ? "Outbox" : "Inbox"}</h3>
-                    <button className="mx-auto mt-12 px-4 py-2 rounded-lg
+                <div className="flex justify-around items-baseline pb-5 px-2 border-b">
+                    <h3 className="text-xl font-semibold text-neutral-800">{displayOutbox ? "Outbox" : "Inbox"}</h3>
+                    <button className="px-4 py-2 rounded-lg
                         bg-neutral-300 hover:bg-neutral-200 focus:outline-none
                         focus:ring focus:ring-offset-2 focus:ring-green-400
                         focus:ring-opacity-50 active:bg-neutral-400
-                        text-neutral-800 shadow-lg
+                        text-neutral-800 shadow
                         font-semibold text-sm sm:text-base" onClick={toggleMessages}>
                         {displayOutbox ? " See Inbox" : "See Outbox"}
                     </button>
