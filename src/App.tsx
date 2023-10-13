@@ -1,7 +1,7 @@
 import { BrowserRouter } from 'react-router-dom';
 import RoutesList from './RoutesList';
 import { useState, useEffect } from 'react';
-import { CurrentUserInterface, LoginFormInterface, SignupFormInterface } from './interfaces';
+import { CurrentUserInterface, ListingInterface, LoginFormInterface, SignupFormInterface } from './interfaces';
 import ShareBnbApi from './api/api';
 import Navbar from './Navbar';
 import { UserContext, SearchContext } from './contexts';
@@ -28,6 +28,7 @@ function App() {
   const [token, setToken] = useState<string | null>(localStorage.getItem("sharebnb-token"));
   const [searchTerm, setSearchTerm] = useState("");
   const [bookings, setBookings] = useState(new Set<string>([]));
+  const [listings, setListings] = useState<ListingInterface[]>([]);
 
   useEffect(function fetchUserInfo() {
     async function getUser() {
@@ -36,9 +37,11 @@ function App() {
           const { username } = decode<{ username: string; }>(token);
           ShareBnbApi.token = token;
           const currentUser = await ShareBnbApi.getCurrentUser(username);
+          const allListings = await ShareBnbApi.getListings(searchTerm);
 
           setCurrentUser({ data: currentUser, isLoaded: true });
           setBookings(new Set(currentUser.bookings.map(b => b.id)));
+          setListings(allListings);
         } catch (error) {
           setCurrentUser({ data: null, isLoaded: true });
         }
@@ -47,13 +50,18 @@ function App() {
       }
     }
     getUser();
-  }, [token]);
+  }, [token, searchTerm]);
 
   useEffect(() => {
     token
       ? localStorage.setItem("sharebnb-token", token)
       : localStorage.removeItem("sharebnb-token");
   }, [token]);
+
+
+  function addListing(listing: ListingInterface) {
+    setListings(list => [...list, listing]);
+  }
 
 
   async function login(loginData: LoginFormInterface) {
@@ -101,7 +109,7 @@ function App() {
         }}>
           <SearchContext.Provider value={searchTerm}>
             <Navbar logout={logout} search={setSearchTerm} />
-            <RoutesList login={login} signup={signup} />
+            <RoutesList login={login} signup={signup} addListing={addListing} />
           </SearchContext.Provider>
         </UserContext.Provider>
       </BrowserRouter>

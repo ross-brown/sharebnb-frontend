@@ -1,13 +1,15 @@
 import { useState } from "react";
 import ShareBnbApi from "../api/api";
-import { ListingFormInterface } from "../interfaces";
+import { ListingFormInterface, ListingInterface } from "../interfaces";
 import { useNavigate } from "react-router-dom";
 import { getErrorMsg } from "../utils";
 
 
+interface ListingFormProps {
+  addListing: (data: ListingInterface) => void;
+}
 
-
-function ListingForm() {
+function ListingForm({ addListing }: ListingFormProps) {
   const navigate = useNavigate();
   const [formData, setFormData] = useState<ListingFormInterface>({
     title: "",
@@ -50,10 +52,11 @@ function ListingForm() {
     }
 
     try {
-      await ShareBnbApi.createListing(listingData);
+      const newListing = await ShareBnbApi.createListing(listingData);
+      addListing(newListing);
       navigate("/");
     } catch (errors) {
-      const messages = getErrorMsg(errors)
+      const messages = getErrorMsg(errors);
       console.error("error creating listing", messages);
       setFormErrors(messages);
     }

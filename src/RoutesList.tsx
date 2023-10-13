@@ -3,7 +3,7 @@ import HomePage from "./HomePage";
 import NotFound from "./common/NotFound";
 import LoginForm from "./auth/LoginForm";
 import SignupForm from "./auth/SignupForm";
-import { LoginFormInterface, SignupFormInterface } from "./interfaces";
+import { ListingInterface, LoginFormInterface, SignupFormInterface } from "./interfaces";
 import ListingForm from "./listings/ListingForm";
 import { useContext } from "react";
 import { UserContext } from "./contexts";
@@ -14,6 +14,7 @@ import ProfilePage from "./profile/ProfilePage";
 interface RoutesListProps {
     login: (data: LoginFormInterface) => Promise<void>;
     signup: (data: SignupFormInterface) => Promise<void>;
+    addListing: (data: ListingInterface) => void;
 }
 
 /** Site-wide routes.
@@ -23,7 +24,7 @@ interface RoutesListProps {
  * Non-matched routes render a NotFound page.
  */
 
-function RoutesList({ login, signup }: RoutesListProps) {
+function RoutesList({ login, signup, addListing }: RoutesListProps) {
     const { currentUser } = useContext(UserContext);
 
 
@@ -38,7 +39,7 @@ function RoutesList({ login, signup }: RoutesListProps) {
                     <Route path="/signup" element={<SignupForm signup={signup} />} />
                 </>
                 : <>
-                    <Route path="/listings/new" element={<ListingForm />} />
+                    <Route path="/listings/new" element={<ListingForm addListing={addListing} />} />
                     <Route path="/messages" element={<MessagePage />} />
                     <Route path="/profile" element={<ProfilePage />} />
                 </>
