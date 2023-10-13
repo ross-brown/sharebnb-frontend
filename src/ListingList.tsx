@@ -1,8 +1,8 @@
-import { ListingInterface } from "./interfaces";
+import { ListingInterface, UserListingsAndBookingsInterface } from "./interfaces";
 import ListingCard from "./ListingCard";
 
 interface ListingListProps {
-    listings: ListingInterface[];
+    listings: UserListingsAndBookingsInterface[] | ListingInterface[];
 }
 
 function ListingList({listings}:ListingListProps){
@@ -12,12 +12,8 @@ function ListingList({listings}:ListingListProps){
             key={l.id}
             id={l.id}
             title={l.title}
-            description={l.description}
-            type={l.type}
             price={l.price}
             photoUrl={l.photoUrl}
-            ownerUsername={l.ownerUsername}
-            location={l.location}
             />)}
         </div>
     )

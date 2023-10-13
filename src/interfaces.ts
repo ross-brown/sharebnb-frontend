@@ -35,8 +35,15 @@ interface UserInterface {
   firstName: string;
   lastName: string;
   email: string;
-  booking?: BookingInterface[];
-  listings?: ListingInterface[];
+  bookings: UserListingsAndBookingsInterface[];
+  listings: UserListingsAndBookingsInterface[];
+}
+
+interface UserListingsAndBookingsInterface {
+  id: string;
+  title: string;
+  price: string;
+  photoUrl: string;
 }
 
 interface BookingInterface {
@@ -51,7 +58,7 @@ interface ListingInterface {
   price: number | string;
   description: string;
   location: string;
-  photoUrl?: string;
+  photoUrl: string;
   ownerUsername: string;
 }
 
@@ -74,5 +81,6 @@ interface MessageInterface {
 export type {
   LoginFormInterface, SignupFormInterface, MessageFormInterface,
   ProfileFormInterface, ListingFormInterface, UserInterface,
-  BookingInterface, ListingInterface, CurrentUserInterface, MessageInterface
+  BookingInterface, ListingInterface, CurrentUserInterface, MessageInterface,
+  UserListingsAndBookingsInterface
 };

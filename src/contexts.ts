@@ -4,10 +4,20 @@ import { CurrentUserInterface, UserInterface } from "./interfaces";
 
 interface UserContextInterface {
   currentUser: UserInterface | null;
-  setCurrentUser: ((data: CurrentUserInterface) => void) | null
+  setCurrentUser: ((data: CurrentUserInterface) => void) | null;
+  hasBookedListing: ((id: string) => boolean) | null;
+  bookListing: ((id: string) => void) | null;
+  cancelBooking: ((id: string) => void) | null;
+
 }
 
 
-const UserContext = createContext<UserContextInterface>({currentUser: null, setCurrentUser: null});
-const SearchContext = createContext("")
-export {UserContext, SearchContext};
+const UserContext = createContext<UserContextInterface>({
+  currentUser: null,
+  setCurrentUser: null,
+  hasBookedListing: null,
+  bookListing: null,
+  cancelBooking: null
+});
+const SearchContext = createContext("");
+export { UserContext, SearchContext };

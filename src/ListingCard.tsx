@@ -1,17 +1,18 @@
 import { Link } from "react-router-dom";
-import { ListingInterface } from "./interfaces";
 
+interface ListingCardProps {
+    id: string;
+    title: string;
+    price: string | number;
+    photoUrl: string;
+}
 
-function ListingCard({ id, title, description, price, location, type, photoUrl, ownerUsername }: ListingInterface) {
+function ListingCard({ id, title, price, photoUrl }:ListingCardProps ) {
     return (
         <div>
             <img src={`${photoUrl}`} width="250px" />
             <h3>{title}</h3>
-            <p>{description}</p>
-            <p>{type}</p>
             <p>${price}</p>
-            <p>{location}</p>
-            <p>Hosted by: {ownerUsername}</p>
             <Link to={`/listings/${id}`}>More details</Link>
         </div>
     );

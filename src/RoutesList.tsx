@@ -9,6 +9,7 @@ import { useContext } from "react";
 import { UserContext } from "./contexts";
 import MessagePage from "./MessagePage";
 import ListingDetail from "./ListingDetail";
+import ProfilePage from "./ProfilePage";
 
 
 interface RoutesListProps {
@@ -26,6 +27,7 @@ function RoutesList({ login, signup }: RoutesListProps) {
     return (
         <Routes>
             <Route path="/" element={<HomePage />} />
+            <Route path="/listings/:id" element={<ListingDetail />} />
             {!currentUser
                 ?
                 <>
@@ -35,7 +37,7 @@ function RoutesList({ login, signup }: RoutesListProps) {
                 : <>
                     <Route path="/listings/new" element={<ListingForm />} />
                     <Route path="/messages" element={<MessagePage />} />
-                    <Route path="/listings/:id" element={<ListingDetail />} />
+                    <Route path="/profile" element={<ProfilePage/>} />
                 </>
             }
             <Route path="*" element={<NotFound />} />

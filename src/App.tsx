@@ -13,8 +13,9 @@ function App() {
     data: null,
     isLoaded: false
   });
-  const [token, setToken] = useState<string | null>(localStorage.getItem("token"));
+  const [token, setToken] = useState<string | null>(localStorage.getItem("sharebnb-token"));
   const [searchTerm, setSearchTerm] = useState("");
+  const [bookings, setBookings] = useState(new Set<string>([]));
 
   useEffect(function fetchUserInfo() {
     async function getUser() {
@@ -25,6 +26,7 @@ function App() {
           const currentUser = await ShareBnbApi.getCurrentUser(username);
 
           setCurrentUser({ data: currentUser, isLoaded: true });
+          setBookings(new Set(currentUser.bookings.map(b=>b.id)))
         } catch (error) {
           setCurrentUser({ data: null, isLoaded: true });
         }
@@ -37,8 +39,8 @@ function App() {
 
   useEffect(() => {
     token
-      ? localStorage.setItem("token", token)
-      : localStorage.removeItem("token");
+      ? localStorage.setItem("sharebnb-token", token)
+      : localStorage.removeItem("sharebnb-token");
   }, [token]);
 
 
@@ -57,11 +59,33 @@ function App() {
     setToken(null);
   }
 
+  function hasBookedListing(id: string) {
+    return bookings.has(id);
+  }
+
+  function bookListing(id: string) {
+    if (hasBookedListing(id)) return;
+    ShareBnbApi.bookAListing(id);
+    setBookings(new Set([...bookings, id]));
+  }
+
+  function cancelBooking(id: string) {
+    if (!hasBookedListing(id)) return;
+    ShareBnbApi.cancelBooking(id);
+    setBookings(bookings => new Set([...bookings].filter(i => i !== id)));
+  }
+
   return (
     <div>
       <h1>ShareBnB</h1>
       <BrowserRouter>
-        <UserContext.Provider value={{ currentUser: currentUser.data, setCurrentUser }}>
+        <UserContext.Provider value={{
+          currentUser: currentUser.data,
+          setCurrentUser,
+          hasBookedListing,
+          bookListing,
+          cancelBooking
+        }}>
           <SearchContext.Provider value={searchTerm}>
             <Navbar logout={logout} search={setSearchTerm} />
             <RoutesList login={login} signup={signup} />
