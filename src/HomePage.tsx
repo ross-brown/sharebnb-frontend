@@ -3,6 +3,7 @@ import ListingList from "./listings/ListingList";
 import { ListingInterface } from "./interfaces";
 import ShareBnbApi from "./api/api";
 import { SearchContext } from "./contexts";
+import Loading from "./common/Loading";
 
 function HomePage() {
     const [listings, setListings] = useState<ListingInterface[] | null>(null);
@@ -19,9 +20,13 @@ function HomePage() {
         setListings(listings);
     }
 
-    if (!listings) return <p>Loading...</p>;
+    if (!listings) return <Loading />;
 
-    return <ListingList listings={listings} />;
+    return (
+        <>
+            <ListingList listings={listings} />;
+        </>
+    );
 
 }
 
