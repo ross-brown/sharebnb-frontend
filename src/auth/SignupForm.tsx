@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { SignupFormInterface } from "../interfaces";
 import Alert from "../common/Alert";
+import { getErrorMsg } from "../utils";
 
 
 interface SignupFormProps {
@@ -18,7 +19,7 @@ function SignupForm({ signup }: SignupFormProps) {
     lastName: "",
     email: ""
   });
-  const [formErrors, setFormErrors] = useState<[] | string>([]);
+  const [formErrors, setFormErrors] = useState<string[] | string>([]);
 
   function handleChange(evt: React.ChangeEvent<HTMLInputElement>) {
     const { name, value } = evt.target;
@@ -34,14 +35,15 @@ function SignupForm({ signup }: SignupFormProps) {
       await signup(formData);
       navigate("/");
     } catch (errors) {
-      setFormErrors(errors[0].message);
+      const messages = getErrorMsg(errors);
+      setFormErrors(messages);
     }
   }
 
   return (
     <div>
 
-      <form className="border-2 max-w-xl mx-auto mt-20 p-8 bg-neutral-200 rounded-lg shadow-lg" onSubmit={handleSubmit}>
+      <form className="border-2 max-w-xl mx-auto my-20 p-8 bg-neutral-200 rounded-lg shadow-lg" onSubmit={handleSubmit}>
         <h3 className="text-xl mb-4 font-bold text-neutral-800 text-center">Sign up for ShareBnB</h3>
         <div className="mb-4">
           <label className="block text-neutral-700 text-sm font-bold mb-2" htmlFor="username">Username</label>
@@ -108,8 +110,8 @@ function SignupForm({ signup }: SignupFormProps) {
                         text-white shadow-lg uppercase tracking-wider
                         font-semibold text-sm sm:text-base">Log In</button>
         </div>
+        {formErrors.length > 0 && <Alert errors={formErrors} />}
       </form>
-      {formErrors.length > 0 && <Alert errors={formErrors} />}
     </div>
   );
 }

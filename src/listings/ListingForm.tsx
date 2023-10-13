@@ -2,6 +2,7 @@ import { useState } from "react";
 import ShareBnbApi from "../api/api";
 import { ListingFormInterface } from "../interfaces";
 import { useNavigate } from "react-router-dom";
+import { getErrorMsg } from "../utils";
 
 
 
@@ -16,7 +17,7 @@ function ListingForm() {
     location: ""
   });
   const [photo, setPhoto] = useState<File | null>(null);
-  const [formErrors, setFormErrors] = useState<[] | string>([]);
+  const [formErrors, setFormErrors] = useState<string[] | string>([]);
 
 
   function handleFileChange(evt: React.ChangeEvent<HTMLInputElement>) {
@@ -51,9 +52,10 @@ function ListingForm() {
     try {
       await ShareBnbApi.createListing(listingData);
       navigate("/");
-    } catch (error) {
-      console.error("error creating listing", error[0].message);
-      setFormErrors(error[0].message);
+    } catch (errors) {
+      const messages = getErrorMsg(errors)
+      console.error("error creating listing", messages);
+      setFormErrors(messages);
     }
   }
 

@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { LoginFormInterface } from "../interfaces";
 import Alert from "../common/Alert";
+import { getErrorMsg } from "../utils";
 
 interface LoginFormProps {
   login: (data: LoginFormInterface) => Promise<void>;
@@ -10,7 +11,7 @@ interface LoginFormProps {
 function LoginForm({ login }: LoginFormProps) {
   const [formData, setFormData] = useState<LoginFormInterface>(
     { username: "", password: "" });
-  const [formErrors, setFormErrors] = useState<[] | string>([]);
+  const [formErrors, setFormErrors] = useState<string[] | string>([]);
   const navigate = useNavigate();
 
 
@@ -27,7 +28,8 @@ function LoginForm({ login }: LoginFormProps) {
       await login(formData);
       navigate("/");
     } catch (errors) {
-      setFormErrors(errors[0].message);
+      const messages = getErrorMsg(errors)
+      setFormErrors(messages);
     }
   }
 

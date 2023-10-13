@@ -55,7 +55,7 @@ function MessagePage() {
                 </div>
                 <MessageList messages={displayOutbox ? messages.sent : messages.received} />
             </div>
-            <div className="lg:col-span-2 mt-20">
+            <div className="lg:col-span-2 my-20">
                 <MessageForm send={send} />
             </div>
         </div>

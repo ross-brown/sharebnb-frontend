@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { MessageFormInterface } from "../interfaces";
+import Alert from "../common/Alert";
+import { getErrorMsg } from "../utils";
 
 interface MessageFormProps {
   send: (formData: MessageFormInterface) => Promise<void>;
@@ -12,7 +14,7 @@ function MessageForm({ send }: MessageFormProps) {
     body: ""
   };
   const [formData, setFormData] = useState<MessageFormInterface>(initialFormData);
-  const [formErrors, setFormErrors] = useState<[] | string>([]);
+  const [formErrors, setFormErrors] = useState<string[] | string>([]);
 
   function handleChange(evt: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
     const { name, value } = evt.target;
@@ -27,8 +29,9 @@ function MessageForm({ send }: MessageFormProps) {
     try {
       await send(formData);
       setFormData(initialFormData);
-    } catch (error) {
-      setFormErrors(error[0].message);
+    } catch (errors) {
+      const messages = getErrorMsg(errors)
+      setFormErrors(messages);
     }
   }
 
@@ -62,7 +65,7 @@ function MessageForm({ send }: MessageFormProps) {
             className="shadow appearance-none border rounded w-full py-2 px-3 text-neutral 700 leading-tight focus:outline-none focus:ring focus:ring-green-500 focus:ring-opacity-50 focus:shadow-outline">
           </textarea>
         </div>
-        {formErrors.length > 0 && "Error sending message"}
+        {formErrors.length > 0 && <Alert errors={formErrors}/>}
         <button className="mx-auto mt-12 block px-5 py-3 rounded-lg
                         bg-green-600 hover:bg-green-500 focus:outline-none
                         focus:ring focus:ring-offset-2 focus:ring-green-400
