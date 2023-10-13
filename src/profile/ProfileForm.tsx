@@ -3,6 +3,7 @@ import { UserContext } from "../contexts";
 import ShareBnbApi from "../api/api";
 import { ProfileFormInterface } from "../interfaces";
 import Alert from "../common/Alert";
+import { getErrorMsg } from "../utils";
 
 
 
@@ -39,8 +40,9 @@ function ProfileForm() {
 
         try {
             updatedUser = await ShareBnbApi.saveProfile(username, profileData);
-        } catch (error) {
-            setFormErrors(error);
+        } catch (errors) {
+            const messages = getErrorMsg(errors)
+            setFormErrors(messages);
         }
         updatedUser!.listings = currentUser?.listings;
         updatedUser!.bookings = currentUser?.bookings;

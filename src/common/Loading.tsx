@@ -4,8 +4,8 @@
 
 function Loading() {
   return (
-    <div className="Loading">
-      <h1>Loading ShareBnB...</h1>
+    <div className="Loading min-h-screen flex justify-center items-center">
+      <h1 className="text-center font-bold text-5xl">Loading ShareBnB...</h1>
     </div>
   );
 }

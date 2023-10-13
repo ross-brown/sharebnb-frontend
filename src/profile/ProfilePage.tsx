@@ -1,17 +1,23 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import ListingList from "../listings/ListingList";
 import ProfileForm from "./ProfileForm";
 import { UserContext } from "../contexts";
 import Loading from "../common/Loading";
+import ShareBnbApi from "../api/api";
+import { ListingInterface } from "../interfaces";
 
 function ProfilePage() {
-    const { currentUser } = useContext(UserContext);
-    // const [bookings, setBookings] = useState([]);
-    //idk if this is will screw up other things...
-    //add state for bookings
-    //add useEffect to fetch all listings and then filter them by hasBooked
-    // set the state for bookings to that filtered list and pass down as props
+    const { currentUser, hasBookedListing } = useContext(UserContext);
+    const [bookings, setBookings] = useState<ListingInterface[]>([]);
 
+    useEffect(() => {
+        async function getListings() {
+            const data = await ShareBnbApi.getListings("");
+            const bookings = data.filter(l => hasBookedListing!(l.id));
+            setBookings(bookings);
+        }
+        getListings();
+    }, []);
 
     if (!currentUser) return <Loading />;
 
@@ -22,7 +28,7 @@ function ProfilePage() {
             </div>
             <div>
                 <ListingList title="Your listings" listings={currentUser.listings} />
-                <ListingList title="Your bookings" listings={currentUser.bookings} />
+                <ListingList title="Your bookings" listings={bookings} />
             </div>
         </>
     );
