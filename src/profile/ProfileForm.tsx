@@ -81,7 +81,7 @@ function ProfileForm() {
                     />
                 </div>
                 <div>
-                    <label>Email</label>
+                    <label>Email address</label>
                     <input
                         name="email"
                         value={formData.email}

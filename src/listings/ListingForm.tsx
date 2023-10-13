@@ -72,6 +72,7 @@ function ListingForm() {
       <div>
         <label htmlFor="file">Title: </label>
         <input
+          required
           name="title"
           onChange={handleChange}
           value={formData.title} />
@@ -79,6 +80,7 @@ function ListingForm() {
       <div>
         <label htmlFor="file">Type: </label>
         <input
+          required
           name="type"
           onChange={handleChange}
           value={formData.type} />
@@ -93,6 +95,7 @@ function ListingForm() {
       <div>
         <label htmlFor="file">Price: </label>
         <input
+          required
           name="price"
           onChange={handleChange}
           value={formData.price} />
@@ -100,6 +103,7 @@ function ListingForm() {
       <div>
         <label htmlFor="file">Location: </label>
         <input
+          required
           name="location"
           onChange={handleChange}
           value={formData.location} />

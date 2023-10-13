@@ -56,7 +56,9 @@ function MessageForm({ send }: MessageFormProps) {
             name="body"
             value={formData.body}
             onChange={handleChange}
-            required></textarea>
+            required
+            placeholder="Type a message">
+          </textarea>
         </div>
         {formErrors.length > 0 && "Error sending message"}
         <button disabled={!isFormFilledOut()}>Send Message</button>
