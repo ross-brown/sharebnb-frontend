@@ -39,29 +39,36 @@ function MessageForm({ send }: MessageFormProps) {
   return (
     <div>
       <h3>Send a message</h3>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="recipient">To: </label>
+      <form className="border-2 max-w-xl mx-auto p-8 bg-neutral-200 rounded-lg shadow-lg" onSubmit={handleSubmit}>
+        <div className="mb-4">
+          <label className="block text-neutral-700 text-sm font-bold mb-2" htmlFor="recipient">To: </label>
           <input
             id="recipient"
             name="recipient"
             value={formData.recipient}
             onChange={handleChange}
-            required />
+            required
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-neutral 700 leading-tight focus:outline-none focus:ring focus:ring-green-500 focus:ring-opacity-50 focus:shadow-outline" />
         </div>
-        <div>
-          <label htmlFor="body">Message body: </label>
+        <div className="mb-4">
+          <label className="block text-neutral-700 text-sm font-bold mb-2" htmlFor="body">Message body: </label>
           <textarea
             id="body"
             name="body"
             value={formData.body}
             onChange={handleChange}
             required
-            placeholder="Type a message">
+            placeholder="Type a message"
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-neutral 700 leading-tight focus:outline-none focus:ring focus:ring-green-500 focus:ring-opacity-50 focus:shadow-outline">
           </textarea>
         </div>
         {formErrors.length > 0 && "Error sending message"}
-        <button disabled={!isFormFilledOut()}>Send Message</button>
+        <button className="mx-auto mt-12 block px-5 py-3 rounded-lg
+                        bg-green-600 hover:bg-green-500 focus:outline-none
+                        focus:ring focus:ring-offset-2 focus:ring-green-400
+                        focus:ring-opacity-50 active:bg-green-700
+                        text-white shadow-lg uppercase tracking-wider
+                        font-semibold text-sm sm:text-base" disabled={!isFormFilledOut()}>Send Message</button>
       </form>
     </div>
   );

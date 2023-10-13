@@ -40,21 +40,22 @@ function SignupForm({ signup }: SignupFormProps) {
 
   return (
     <div>
-      <h3>Sign up for ShareBnB</h3>
 
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="username">Username</label>
+      <form className="border-2 max-w-xl mx-auto mt-20 p-8 bg-neutral-200 rounded-lg shadow-lg" onSubmit={handleSubmit}>
+        <h3 className="text-xl mb-4 font-bold text-neutral-800 text-center">Sign up for ShareBnB</h3>
+        <div className="mb-4">
+          <label className="block text-neutral-700 text-sm font-bold mb-2" htmlFor="username">Username</label>
           <input
             id="username"
             name="username"
             value={formData.username}
             onChange={handleChange}
             required
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-neutral 700 leading-tight focus:outline-none focus:ring focus:ring-green-500 focus:ring-opacity-50 focus:shadow-outline"
           />
         </div>
-        <div>
-          <label htmlFor="password">Password</label>
+        <div className="mb-4">
+          <label className="block text-neutral-700 text-sm font-bold mb-2" htmlFor="password">Password</label>
           <input
             type="password"
             id="password"
@@ -62,30 +63,33 @@ function SignupForm({ signup }: SignupFormProps) {
             value={formData.password}
             onChange={handleChange}
             required
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-neutral 700 leading-tight focus:outline-none focus:ring focus:ring-green-500 focus:ring-opacity-50 focus:shadow-outline"
           />
         </div>
-        <div>
-          <label htmlFor="firstName">First name</label>
+        <div className="mb-4">
+          <label className="block text-neutral-700 text-sm font-bold mb-2" htmlFor="firstName">First name</label>
           <input
             id="firstName"
             name="firstName"
             value={formData.firstName}
             onChange={handleChange}
             required
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-neutral 700 leading-tight focus:outline-none focus:ring focus:ring-green-500 focus:ring-opacity-50 focus:shadow-outline"
           />
         </div>
-        <div>
-          <label htmlFor="lastName">Last name</label>
+        <div className="mb-4">
+          <label className="block text-neutral-700 text-sm font-bold mb-2" htmlFor="lastName">Last name</label>
           <input
             id="lastName"
             name="lastName"
             value={formData.lastName}
             onChange={handleChange}
             required
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-neutral 700 leading-tight focus:outline-none focus:ring focus:ring-green-500 focus:ring-opacity-50 focus:shadow-outline"
           />
         </div>
-        <div>
-          <label htmlFor="email">Email</label>
+        <div className="mb-4">
+          <label className="block text-neutral-700 text-sm font-bold mb-2" htmlFor="email">Email</label>
           <input
             type="email"
             id="email"
@@ -93,10 +97,16 @@ function SignupForm({ signup }: SignupFormProps) {
             value={formData.email}
             onChange={handleChange}
             required
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-neutral 700 leading-tight focus:outline-none focus:ring focus:ring-green-500 focus:ring-opacity-50 focus:shadow-outline"
           />
         </div>
-        <div>
-          <button>Log In</button>
+        <div className="mb-4">
+          <button className="mx-auto mt-12 block px-5 py-3 rounded-lg
+                        bg-green-600 hover:bg-green-500 focus:outline-none
+                        focus:ring focus:ring-offset-2 focus:ring-green-400
+                        focus:ring-opacity-50 active:bg-green-700
+                        text-white shadow-lg uppercase tracking-wider
+                        font-semibold text-sm sm:text-base">Log In</button>
         </div>
       </form>
       {formErrors.length > 0 && <Alert errors={formErrors} />}

@@ -56,45 +56,52 @@ function ProfileForm() {
 
 
     return (
-        <div>
-            <form onSubmit={handleSubmit}>
-                <div>
-                    <label>Username</label>
-                    <input
-                        disabled
-                        placeholder={formData.username} />
-                </div>
-                <div>
-                    <label>First Name</label>
-                    <input
-                        name="firstName"
-                        value={formData.firstName}
-                        onChange={handleChange}
-                    />
-                </div>
-                <div>
-                    <label>Last Name</label>
-                    <input
-                        name="lastName"
-                        value={formData.lastName}
-                        onChange={handleChange}
-                    />
-                </div>
-                <div>
-                    <label>Email address</label>
-                    <input
-                        name="email"
-                        value={formData.email}
-                        onChange={handleChange}
-                    />
-                </div>
-                {formErrors.length > 0 && <Alert errors={formErrors} />}
-                {isSaved && "Updated successfully"}
-                <div>
-                    <button>Save Changes</button>
-                </div>
-            </form>
-        </div>
+        <form className="border-2 max-w-xl mx-auto p-8 bg-neutral-200 rounded-lg shadow-lg" onSubmit={handleSubmit}>
+            <div className="mb-4">
+                <label className="block text-neutral-700 text-sm font-bold mb-2">Username</label>
+                <input
+                    disabled
+                    placeholder={formData.username}
+                    className="shadow appearance-none border rounded w-full py-2 px-3 text-neutral 700 leading-tight focus:outline-none focus:ring focus:ring-green-500 focus:ring-opacity-50 focus:shadow-outline" />
+            </div>
+            <div className="mb-4">
+                <label className="block text-neutral-700 text-sm font-bold mb-2">First Name</label>
+                <input
+                    name="firstName"
+                    value={formData.firstName}
+                    onChange={handleChange}
+                    className="shadow appearance-none border rounded w-full py-2 px-3 text-neutral 700 leading-tight focus:outline-none focus:ring focus:ring-green-500 focus:ring-opacity-50 focus:shadow-outline"
+                />
+            </div>
+            <div className="mb-4">
+                <label className="block text-neutral-700 text-sm font-bold mb-2">Last Name</label>
+                <input
+                    name="lastName"
+                    value={formData.lastName}
+                    onChange={handleChange}
+                    className="shadow appearance-none border rounded w-full py-2 px-3 text-neutral 700 leading-tight focus:outline-none focus:ring focus:ring-green-500 focus:ring-opacity-50 focus:shadow-outline"
+                />
+            </div>
+            <div className="mb-4">
+                <label className="block text-neutral-700 text-sm font-bold mb-2">Email address</label>
+                <input
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    className="shadow appearance-none border rounded w-full py-2 px-3 text-neutral 700 leading-tight focus:outline-none focus:ring focus:ring-green-500 focus:ring-opacity-50 focus:shadow-outline"
+                />
+            </div>
+            {formErrors.length > 0 && <Alert errors={formErrors} />}
+            {isSaved && "Updated successfully"}
+            <div className="mb-4">
+                <button className="mx-auto mt-12 block px-5 py-3 rounded-lg
+                        bg-green-600 hover:bg-green-500 focus:outline-none
+                        focus:ring focus:ring-offset-2 focus:ring-green-400
+                        focus:ring-opacity-50 active:bg-green-700
+                        text-white shadow-lg uppercase tracking-wider
+                        font-semibold text-sm sm:text-base">Save Changes</button>
+            </div>
+        </form>
     );
 }
 
