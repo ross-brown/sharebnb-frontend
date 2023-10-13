@@ -15,15 +15,12 @@ function ProfilePage() {
 
     return (
         <>
-            <div>
-                <h2>Your profile</h2>
+            <div className="mt-8">
                 <ProfileForm />
             </div>
             <div>
-                <h2>Your listings</h2>
-                <ListingList listings={currentUser.listings} />
-                <h2>Your bookings</h2>
-                <ListingList listings={currentUser.bookings} />
+                <ListingList title="Your listings" listings={currentUser.listings} />
+                <ListingList title="Your bookings" listings={currentUser.bookings} />
             </div>
         </>
     );

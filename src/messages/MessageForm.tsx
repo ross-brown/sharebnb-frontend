@@ -38,8 +38,8 @@ function MessageForm({ send }: MessageFormProps) {
 
   return (
     <div>
-      <h3>Send a message</h3>
       <form className="border-2 max-w-xl mx-auto p-8 bg-neutral-200 rounded-lg shadow-lg" onSubmit={handleSubmit}>
+      <h3 className="text-xl mb-4 font-bold text-neutral-800 text-center">Send a message</h3>
         <div className="mb-4">
           <label className="block text-neutral-700 text-sm font-bold mb-2" htmlFor="recipient">To: </label>
           <input
@@ -68,7 +68,12 @@ function MessageForm({ send }: MessageFormProps) {
                         focus:ring focus:ring-offset-2 focus:ring-green-400
                         focus:ring-opacity-50 active:bg-green-700
                         text-white shadow-lg uppercase tracking-wider
-                        font-semibold text-sm sm:text-base" disabled={!isFormFilledOut()}>Send Message</button>
+                        font-semibold text-sm sm:text-base" disabled={!isFormFilledOut()}>
+
+                          <div className="flex items-center"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-5 h-5 inline">
+                        <path d="M3.105 2.289a.75.75 0 00-.826.95l1.414 4.925A1.5 1.5 0 005.135 9.25h6.115a.75.75 0 010 1.5H5.135a1.5 1.5 0 00-1.442 1.086l-1.414 4.926a.75.75 0 00.826.95 28.896 28.896 0 0015.293-7.154.75.75 0 000-1.115A28.897 28.897 0 003.105 2.289z" />
+                      </svg>
+                      <span className="ps-3">Send Message</span></div></button>
       </form>
     </div>
   );

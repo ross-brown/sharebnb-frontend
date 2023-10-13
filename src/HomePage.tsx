@@ -26,7 +26,7 @@ function HomePage() {
     return (
         <>
             <SplashPage/>
-            <ListingList listings={listings} />;
+            <ListingList title="Check out our spaces" listings={listings} />;
         </>
     );
 

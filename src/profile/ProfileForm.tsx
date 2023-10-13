@@ -57,6 +57,7 @@ function ProfileForm() {
 
     return (
         <form className="border-2 max-w-xl mx-auto p-8 bg-neutral-200 rounded-lg shadow-lg" onSubmit={handleSubmit}>
+            <h2 className="text-xl mb-4 font-bold text-neutral-800 text-center">Edit your profile</h2>
             <div className="mb-4">
                 <label className="block text-neutral-700 text-sm font-bold mb-2">Username</label>
                 <input

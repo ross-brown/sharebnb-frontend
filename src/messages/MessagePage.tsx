@@ -39,16 +39,23 @@ function MessagePage() {
     }
 
     return (
-        <div>
-            <h2>Messages</h2>
-            <h3>{displayOutbox ? "Outbox" : "Inbox"}</h3>
-            <div>
+        <div className="grid lg:grid-cols-3">
+            <div className="col-span-1 lg:border-r">
+                <h2 className="text-xl my-4 font-bold text-neutral-800 text-center">Messages</h2>
+                <div className="flex justify-around items-center py-2 px-2">
+                    <h3 className="text-xl mb-4 font-semibold text-neutral-800">{displayOutbox ? "Outbox" : "Inbox"}</h3>
+                    <button className="mx-auto mt-12 px-4 py-2 rounded-lg
+                        bg-neutral-300 hover:bg-neutral-200 focus:outline-none
+                        focus:ring focus:ring-offset-2 focus:ring-green-400
+                        focus:ring-opacity-50 active:bg-neutral-400
+                        text-neutral-800 shadow-lg
+                        font-semibold text-sm sm:text-base" onClick={toggleMessages}>
+                        {displayOutbox ? " See Inbox" : "See Outbox"}
+                    </button>
+                </div>
                 <MessageList messages={displayOutbox ? messages.sent : messages.received} />
-                <button onClick={toggleMessages}>
-                    {displayOutbox ? " See Inbox" : "See Outbox"}
-                </button>
             </div>
-            <div>
+            <div className="lg:col-span-2 mt-20">
                 <MessageForm send={send} />
             </div>
         </div>
