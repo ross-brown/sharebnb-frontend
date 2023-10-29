@@ -3,7 +3,7 @@ import {
   LoginFormInterface, MessageInterface,
   SignupFormInterface, ProfileFormInterface, UserInterface, ListingInterface, BookingInterface, MessageFormInterface
 } from "../interfaces";
-
+import DEFAULT_IMG from "../assets/sharebnb-deafult.jpeg";
 
 //TODO:get a message by id
 class ShareBnbApi {
@@ -73,15 +73,20 @@ class ShareBnbApi {
     title === ""
       ? res = await this.request("listings")
       : res = await this.request("listings", { title });
-    // const res = await this.request(`listings`, { title });
-    console.log("get listings res=", res);
-    return res.listings;
+
+    const listings = res.listings.map((listing: ListingInterface) => {
+      if (!listing.photoUrl) listing.photoUrl = DEFAULT_IMG;
+      return listing;
+    });
+
+    return listings;
   }
 
   /** Get details on a specifc listing by id */
   static async getListing(id: number | string): Promise<ListingInterface> {
-    const res = await this.request(`listings/${id}`);
-    return res.listing;
+    const { listing } = await this.request(`listings/${id}`);
+    if (!listing.photoUrl) listing.photoUrl = DEFAULT_IMG;
+    return listing;
   }
 
   /** Create a new lisitng */
@@ -150,6 +155,11 @@ class ShareBnbApi {
     return res.message;
   }
 
+  /** Get a specific message by ID */
+  static async getMessage(id: number | string): Promise<MessageInterface> {
+    const res = await this.request(`messages/${id}`);
+    return res.message;
+  }
 }
 
 
