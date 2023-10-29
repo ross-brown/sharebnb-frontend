@@ -1,11 +1,11 @@
 const BASE_URL = import.meta.env.REACT_APP_BASE_URL || "http://localhost:3001";
 import {
   LoginFormInterface, MessageInterface,
-  SignupFormInterface, ProfileFormInterface, UserInterface, ListingInterface, BookingInterface, MessageFormInterface
+  SignupFormInterface, ProfileFormInterface,
+  UserInterface, ListingInterface, BookingInterface, MessageFormInterface
 } from "../interfaces";
 import DEFAULT_IMG from "../assets/sharebnb-deafult.jpeg";
 
-//TODO:get a message by id
 class ShareBnbApi {
   // the token for interactive with the API will be stored here.
   static token: string;
@@ -63,8 +63,15 @@ class ShareBnbApi {
 
   /** Get the current user. */
   static async getCurrentUser(username: string): Promise<UserInterface> {
-    const res = await this.request(`users/${username}`);
-    return res.user;
+    const { user } = await this.request(`users/${username}`);
+
+    user.listings.forEach((listing: ListingInterface) => {
+      if (!listing.photoUrl) {
+        listing.photoUrl = DEFAULT_IMG;
+      }
+    });
+
+    return user;
   }
 
   /** Get listings (filtered by title if not undefined) */
