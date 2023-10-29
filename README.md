@@ -1,33 +1,61 @@
-# React + TypeScript + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# ShareBnB Frontend
 
-Currently, two official plugins are available:
+A web application for sharing outdoor spaces with others. Authenticated users may create listings so that other users may book them.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Demo: WIP
 
-## Expanding the ESLint configuration
+Link to backend repo: https://github.com/ross-brown/sharebnb-backend
+## Tech Stack
+![react](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+![typescript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
 
-- Configure the top-level `parserOptions` property like this:
+![React_Router](https://img.shields.io/badge/React_Router-CA4245?style=for-the-badge&logo=react-router&logoColor=white)
 
-```js
-   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-   },
+![tailwind](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
+
+
+
+## Features
+- User authentication
+- View/search for listings, even without an account
+- Upload photo when creating a new listing using AWS S3
+- Can "book" a listing when logged in
+- Message other users on the platform
+
+## Run Locally
+
+Go to the project directory after cloning the repo
+
+```bash
+cd sharebnb-frontend
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+Install dependencies
 
-## Futher Study
-- TESTING!
+```bash
+npm install
+```
+
+Start the server
+
+```bash
+npm start
+```
+
+
+## Future Features
+
+- Write tests
 - Delete and Edit a Listing
-- Availble table, book a lisitng for certain dates
-- Refactor interfaces / common css classes
+- Available table in DB, book a listing for certain dates
+    -  Possibily add a calender date-picker
+- Refactor TypeScript interfaces / common CSS classes
+
+
+## Authors
+
+- [Ross Brown](https://www.github.com/ross-brown)
+- [Chris Alley](https://www.github.com/cp-alley)
+
