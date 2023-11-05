@@ -14,7 +14,7 @@ function MessageForm({ send }: MessageFormProps) {
     body: ""
   };
   const [formData, setFormData] = useState<MessageFormInterface>(initialFormData);
-  const [formErrors, setFormErrors] = useState<string[] | string>([]);
+  const [formErrors, setFormErrors] = useState<string[][] | string[]>([]);
 
   function handleChange(evt: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
     const { name, value } = evt.target;

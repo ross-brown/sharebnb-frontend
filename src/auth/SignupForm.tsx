@@ -19,7 +19,7 @@ function SignupForm({ signup }: SignupFormProps) {
     lastName: "",
     email: ""
   });
-  const [formErrors, setFormErrors] = useState<string[] | string>([]);
+  const [formErrors, setFormErrors] = useState<string[][] | string[]>([]);
 
   function handleChange(evt: React.ChangeEvent<HTMLInputElement>) {
     const { name, value } = evt.target;

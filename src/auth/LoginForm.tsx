@@ -11,7 +11,7 @@ interface LoginFormProps {
 function LoginForm({ login }: LoginFormProps) {
   const [formData, setFormData] = useState<LoginFormInterface>(
     { username: "", password: "" });
-  const [formErrors, setFormErrors] = useState<string[] | string>([]);
+  const [formErrors, setFormErrors] = useState<string[][] | string[]>([]);
   const navigate = useNavigate();
 
 
