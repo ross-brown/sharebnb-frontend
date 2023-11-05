@@ -3,7 +3,7 @@
 
 A web application for sharing outdoor spaces with others. Authenticated users may create listings so that other users may book them.
 
-Demo: https://rbrown-sharebnb.surge.sh/
+Demo: https://rbrown-sharebnb.netlify.app
 
 Link to backend repo: https://github.com/ross-brown/sharebnb-backend
 ## Tech Stack
