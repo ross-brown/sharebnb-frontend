@@ -1,21 +1,20 @@
-import { useContext, useState } from "react";
-import { UserContext } from "../contexts";
+import { useState } from "react";
+import { useCurrentUser } from "../contexts";
 import ShareBnbApi from "../api/api";
 import { ProfileFormInterface } from "../interfaces";
 import Alert from "../common/Alert";
 import { getErrorMsg } from "../utils";
 
 
-
 function ProfileForm() {
-    const { currentUser, setCurrentUser } = useContext(UserContext);
+    const { currentUser, setCurrentUser } = useCurrentUser();
     const [formData, setFormData] = useState({
         username: currentUser?.username,
         firstName: currentUser?.firstName,
         lastName: currentUser?.lastName,
         email: currentUser?.email
     });
-    const [formErrors, setFormErrors] = useState<string[] | string>([]);
+    const [formErrors, setFormErrors] = useState<string[][] | string[]>([]);
     const [isSaved, setIsSaved] = useState(false);
 
     function handleChange(evt: React.ChangeEvent<HTMLInputElement>) {
@@ -30,9 +29,9 @@ function ProfileForm() {
         evt.preventDefault();
 
         const profileData: ProfileFormInterface = {
-            firstName: formData.firstName!,
-            lastName: formData.lastName!,
-            email: formData.email!,
+            firstName: formData.firstName,
+            lastName: formData.lastName,
+            email: formData.email,
         };
 
         const username = formData.username!;
@@ -40,22 +39,21 @@ function ProfileForm() {
 
         try {
             updatedUser = await ShareBnbApi.saveProfile(username, profileData);
+            setCurrentUser(currentUser => ({
+                ...currentUser,
+                data: {
+                    ...currentUser.data,
+                    ...updatedUser
+                },
+            }));
+            setFormData(fData => ({ ...fData }));
+            setFormErrors([]);
+            setIsSaved(true);
         } catch (errors) {
-            const messages = getErrorMsg(errors)
+            const messages = getErrorMsg(errors);
             setFormErrors(messages);
         }
-        updatedUser!.listings = currentUser?.listings;
-        updatedUser!.bookings = currentUser?.bookings;
-
-        setFormData(fData => ({ ...fData }));
-        setFormErrors([]);
-        setIsSaved(true);
-        setCurrentUser!(currentUser => ({
-            ...currentUser,
-            data: updatedUser,
-        }));
     }
-
 
     return (
         <form className="border-2 max-w-xl mx-auto p-8 bg-neutral-200 rounded-lg shadow-lg" onSubmit={handleSubmit}>

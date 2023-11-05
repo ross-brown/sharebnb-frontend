@@ -1,10 +1,9 @@
-import { useContext } from "react";
 import { MessageInterface } from "../interfaces";
-import { UserContext } from "../contexts";
+import { useCurrentUser } from "../contexts";
 
 
 function Message({ sender, recipient, body, sentAt }: MessageInterface) {
-  const { currentUser } = useContext(UserContext);
+  const { currentUser } = useCurrentUser();
   if (currentUser?.username === sender) {
     sender = "You";
   }

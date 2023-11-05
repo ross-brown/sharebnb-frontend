@@ -1,6 +1,6 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
-import { UserContext } from "./contexts";
+import { useCurrentUser } from "./contexts";
 import SearchForm from "./SearchForm";
 
 interface NavbarProps {
@@ -11,7 +11,7 @@ interface NavbarProps {
 
 function Navbar({ logout, search }: NavbarProps) {
     const [isOpen, setIsOpen] = useState(false);
-    const { currentUser } = useContext(UserContext);
+    const { currentUser } = useCurrentUser();
     const location = useLocation();
 
     function handleClick() {

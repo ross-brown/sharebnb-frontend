@@ -12,9 +12,9 @@ interface SignupFormInterface extends LoginFormInterface {
 }
 
 interface ProfileFormInterface {
-  firstName: string;
-  lastName: string;
-  email: string;
+  firstName: string | undefined;
+  lastName: string | undefined;
+  email: string | undefined;
 }
 
 interface ListingFormInterface {

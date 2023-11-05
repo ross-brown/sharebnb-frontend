@@ -1,9 +1,8 @@
-import { useContext } from "react";
-import { UserContext } from "./contexts";
+import { useCurrentUser } from "./contexts";
 import { Link } from "react-router-dom";
 
 function SplashPage() {
-    const { currentUser } = useContext(UserContext);
+    const { currentUser } = useCurrentUser();
 
     return (
         <div id="grid-container" className="grid bg-neutral-100 lg:grid-cols-2

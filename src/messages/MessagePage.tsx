@@ -1,5 +1,5 @@
-import { useContext, useState, useEffect } from "react";
-import { UserContext } from "../contexts";
+import { useState, useEffect } from "react";
+import { useCurrentUser } from "../contexts";
 import ShareBnbApi from "../api/api";
 import { MessageFormInterface, MessageInterface } from "../interfaces";
 import MessageList from "./MessageList";
@@ -13,7 +13,7 @@ interface MessagesInterface {
 function MessagePage() {
     const [messages, setMessages] = useState<MessagesInterface>({ sent: [], received: [] });
     const [displayOutbox, setDisplayOutbox] = useState(false);
-    const { currentUser } = useContext(UserContext);
+    const { currentUser } = useCurrentUser();
 
     useEffect(function getMessagesOnMount() {
         console.log("messages useeffect");
