@@ -14,7 +14,7 @@ function ListingCard({ id, title, price, photoUrl }: ListingCardProps) {
                 <img className="object-cover object-center w-full aspect-square"
                     src={`${photoUrl}`} />
             </div>
-            <div className="mt-2 flex items-baseline justify-between">
+            <div className="mt-2 flex flex-col items-baseline justify-between">
                 <h3 className="mt-1 text-xl text-neutral-900">{title}</h3>
                 <p className="text-neutral-600">{"$" + Intl.NumberFormat("en-US").format(price as number)} / day</p>
             </div>

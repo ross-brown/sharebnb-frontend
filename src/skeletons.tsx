@@ -3,24 +3,24 @@ import Skeleton from "react-loading-skeleton";
 
 export function ListingListSkeleton() {
   return (
-    <>
-      <div className="flex flex-col gap-2">
-        <Skeleton count={1} height={300} width={300} />
-        <Skeleton count={1} height={30} width={300} />
+    <div className="flex gap-7">
+      <div className="flex flex-col gap-1">
+        <Skeleton className="rounded-lg" count={1} height={300} width={300} />
+        <Skeleton className="rounded-lg" count={1} height={30} width={300} />
       </div>
-      <div className="flex flex-col gap-2">
-        <Skeleton count={1} height={300} width={300} />
-        <Skeleton count={1} height={30} width={300} />
+      <div className="flex flex-col gap-1">
+        <Skeleton className="rounded-lg" count={1} height={300} width={300} />
+        <Skeleton className="rounded-lg" count={1} height={30} width={300} />
       </div>
-      <div className="flex flex-col gap-2">
-        <Skeleton count={1} height={300} width={300} />
-        <Skeleton count={1} height={30} width={300} />
+      <div className="flex flex-col gap-1">
+        <Skeleton className="rounded-lg" count={1} height={300} width={300} />
+        <Skeleton className="rounded-lg" count={1} height={30} width={300} />
       </div>
-      <div className="flex flex-col gap-2">
-        <Skeleton count={1} height={300} width={300} />
-        <Skeleton count={1} height={30} width={300} />
+      <div className="flex flex-col gap-1">
+        <Skeleton className="rounded-lg" count={1} height={300} width={300} />
+        <Skeleton className="rounded-lg" count={1} height={30} width={300} />
       </div>
-    </>
+    </div>
   );
 }
 
