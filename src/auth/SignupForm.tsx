@@ -3,6 +3,7 @@ import { useState } from "react";
 import { SignupFormInterface } from "../interfaces";
 import Alert from "../common/Alert";
 import { getErrorMsg } from "../utils";
+import { Spinner } from "../common/Spinner";
 
 
 interface SignupFormProps {
@@ -20,6 +21,7 @@ function SignupForm({ signup }: SignupFormProps) {
     email: ""
   });
   const [formErrors, setFormErrors] = useState<string[][] | string[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   function handleChange(evt: React.ChangeEvent<HTMLInputElement>) {
     const { name, value } = evt.target;
@@ -31,10 +33,13 @@ function SignupForm({ signup }: SignupFormProps) {
 
   async function handleSubmit(evt: React.FormEvent<HTMLFormElement>) {
     evt.preventDefault();
+    setIsLoading(true);
+    setFormErrors([]);
     try {
       await signup(formData);
       navigate("/");
     } catch (errors) {
+      setIsLoading(false);
       const messages = getErrorMsg(errors);
       setFormErrors(messages);
     }
@@ -110,6 +115,14 @@ function SignupForm({ signup }: SignupFormProps) {
                         text-white shadow-lg uppercase tracking-wider
                         font-semibold text-sm sm:text-base">Log In</button>
         </div>
+        {isLoading &&
+          <div className="flex justify-center m-6 font-semibold text-xl">
+            <div role="status">
+              <Spinner />
+              <span className="sr-only">Loading...</span>
+            </div>
+          </div>
+        }
         {formErrors.length > 0 && <Alert errors={formErrors} />}
       </form>
     </div>

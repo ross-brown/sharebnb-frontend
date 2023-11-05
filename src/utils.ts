@@ -1,5 +1,4 @@
 
-
 function getErrorMsg(err: unknown): string[] {
   if (err instanceof Error) {
     return [err.message];
@@ -12,5 +11,14 @@ function getErrorMsg(err: unknown): string[] {
   }
 }
 
+function formatError(err: string) {
+  let formatted = err;
 
-export { getErrorMsg };
+  if (err.slice(0,8) === "instance") {
+    formatted = err.slice(9);
+  }
+
+  return formatted.slice(0, 1).toUpperCase() + formatted.slice(1);
+}
+
+export { getErrorMsg, formatError };

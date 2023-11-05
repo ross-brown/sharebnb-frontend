@@ -3,15 +3,16 @@ import { useNavigate } from "react-router-dom";
 import { LoginFormInterface } from "../interfaces";
 import Alert from "../common/Alert";
 import { getErrorMsg } from "../utils";
+import { Spinner } from "../common/Spinner";
 
 interface LoginFormProps {
   login: (data: LoginFormInterface) => Promise<void>;
 }
 
 function LoginForm({ login }: LoginFormProps) {
-  const [formData, setFormData] = useState<LoginFormInterface>(
-    { username: "", password: "" });
+  const [formData, setFormData] = useState<LoginFormInterface>({ username: "", password: "" });
   const [formErrors, setFormErrors] = useState<string[][] | string[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
 
@@ -24,11 +25,15 @@ function LoginForm({ login }: LoginFormProps) {
 
   async function handleSubmit(evt: React.FormEvent) {
     evt.preventDefault();
+    setIsLoading(true);
+    setFormErrors([]);
+
     try {
       await login(formData);
       navigate("/");
     } catch (errors) {
-      const messages = getErrorMsg(errors)
+      setIsLoading(false);
+      const messages = getErrorMsg(errors);
       setFormErrors(messages);
     }
   }
@@ -67,6 +72,14 @@ function LoginForm({ login }: LoginFormProps) {
                         text-white shadow-lg uppercase tracking-wider
                         font-semibold text-sm sm:text-base">Log In</button>
       </div>
+      {isLoading &&
+        <div className="flex justify-center m-6 font-semibold text-xl">
+          <div role="status">
+            <Spinner />
+            <span className="sr-only">Loading...</span>
+          </div>
+        </div>
+      }
       {formErrors.length > 0 && <Alert errors={formErrors} />}
     </form>
   );

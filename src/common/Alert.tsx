@@ -1,23 +1,15 @@
-/** Presentational component for showing bootstrap-style alerts.
- *
- * { LoginForm, SignupForm, ProfileForm } -> Alert
- **/
+import { formatError } from "../utils";
 
 interface AlertProps {
   type?: string;
   errors: string[][] | string[];
 }
 
-function formatError(err: string) {
-  let formatted = err;
 
-  if (err.slice(0,7) === "instance") {
-    formatted = err.slice(9);
-  }
-
-  return formatted.slice(0, 1).toUpperCase() + formatted.slice(1);
-}
-
+/** Presentational component for showing bootstrap-style alerts.
+ *
+ * { LoginForm, SignupForm, ProfileForm } -> Alert
+ **/
 
 function Alert({ type = "danger", errors = [] }: AlertProps) {
   console.debug("Alert", "type=", type, "errors=", errors);
@@ -40,8 +32,6 @@ function Alert({ type = "danger", errors = [] }: AlertProps) {
             </div>
           );
         })}
-
-
     </div>
   );
 }
