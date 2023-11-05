@@ -15,6 +15,7 @@ interface RoutesListProps {
     login: (data: LoginFormInterface) => Promise<void>;
     signup: (data: SignupFormInterface) => Promise<void>;
     addListing: (data: ListingInterface) => void;
+    listings: ListingInterface[];
 }
 
 /** Site-wide routes.
@@ -24,13 +25,13 @@ interface RoutesListProps {
  * Non-matched routes render a NotFound page.
  */
 
-function RoutesList({ login, signup, addListing }: RoutesListProps) {
+function RoutesList({ login, signup, addListing, listings }: RoutesListProps) {
     const { currentUser } = useContext(UserContext);
 
 
     return (
         <Routes>
-            <Route path="/" element={<HomePage />} />
+            <Route path="/" element={<HomePage listings={listings} />} />
             <Route path="/listings/:id" element={<ListingDetail />} />
             {!currentUser
                 ?

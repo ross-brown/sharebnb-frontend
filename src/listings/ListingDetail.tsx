@@ -21,9 +21,10 @@ function ListingDetail() {
         const listing = await ShareBnbApi.getListing(id!);
         setListing(listing);
         setBooked(hasBookedListing!(listing.id));
-      } catch (errors) {
-        const messages = getErrorMsg(errors);
+      } catch (errs) {
+        const messages = getErrorMsg(errs);
         setErrors(messages);
+        console.log(errors);
       }
     }
     getListing();

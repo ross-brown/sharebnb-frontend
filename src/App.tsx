@@ -30,27 +30,34 @@ function App() {
   const [bookings, setBookings] = useState(new Set<string>([]));
   const [listings, setListings] = useState<ListingInterface[]>([]);
 
-  useEffect(function fetchUserInfo() {
+  useEffect(() => {
     async function getUser() {
-      if (token) {
-        try {
-          const { username } = decode<{ username: string; }>(token);
-          ShareBnbApi.token = token;
-          const currentUser = await ShareBnbApi.getCurrentUser(username);
-          const allListings = await ShareBnbApi.getListings(searchTerm);
+      if (!token) {
+        setCurrentUser({ data: null, isLoaded: true });
+        return;
+      }
 
-          setCurrentUser({ data: currentUser, isLoaded: true });
-          setBookings(new Set(currentUser.bookings.map(b => b.id)));
-          setListings(allListings);
-        } catch (error) {
-          setCurrentUser({ data: null, isLoaded: true });
-        }
-      } else {
+      try {
+        const { username } = decode<{ username: string; }>(token);
+        ShareBnbApi.token = token;
+        const currentUser = await ShareBnbApi.getCurrentUser(username);
+
+        setCurrentUser({ data: currentUser, isLoaded: true });
+        setBookings(new Set(currentUser.bookings.map(b => b.id)));
+      } catch (error) {
         setCurrentUser({ data: null, isLoaded: true });
       }
     }
     getUser();
-  }, [token, searchTerm]);
+  }, [token]);
+
+  useEffect(() => {
+    async function fetchListings() {
+      const Listings = await ShareBnbApi.getListings(searchTerm);
+      setListings(Listings);
+    }
+    fetchListings();
+  }, [searchTerm]);
 
   useEffect(() => {
     token
@@ -109,7 +116,7 @@ function App() {
         }}>
           <SearchContext.Provider value={searchTerm}>
             <Navbar logout={logout} search={setSearchTerm} />
-            <RoutesList login={login} signup={signup} addListing={addListing} />
+            <RoutesList login={login} signup={signup} addListing={addListing} listings={listings} />
           </SearchContext.Provider>
         </UserContext.Provider>
       </BrowserRouter>

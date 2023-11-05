@@ -14,7 +14,7 @@ function MessageList({ messages }: MessageListProps) {
 
 
   return (
-    <div className="flex flex-col p-4">
+    <div className="flex flex-col">
       {messages.map(m => (
         <Message
           key={m.id}
