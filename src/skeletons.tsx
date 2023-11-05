@@ -3,22 +3,47 @@ import Skeleton from "react-loading-skeleton";
 
 export function ListingListSkeleton() {
   return (
-    <div className="flex gap-7">
-      <div className="flex flex-col gap-1">
-        <Skeleton className="rounded-lg" count={1} height={300} width={300} />
-        <Skeleton className="rounded-lg" count={1} height={30} width={300} />
+    <div className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3 lg:gap-8
+        2xl:grid-cols-4 2xl:max-w-7xl 2xl:mx-auto">
+      <div className="mt-4">
+        <div className="w-full rounded-lg">
+          <div className="relative aspect-square">
+            <Skeleton className="absolute inset-0 w-full h-full" count={1} />
+          </div>
+        </div>
+        <div className="mt-2 flex flex-col items-baseline justify-between">
+          <Skeleton containerClassName="rounded-lg" className="w-full" count={1} height={30} width={300} />
+        </div>
       </div>
-      <div className="flex flex-col gap-1">
-        <Skeleton className="rounded-lg" count={1} height={300} width={300} />
-        <Skeleton className="rounded-lg" count={1} height={30} width={300} />
+      <div className="mt-4">
+        <div className="w-full rounded-lg">
+          <div className="relative aspect-square">
+            <Skeleton className="absolute inset-0 w-full h-full" count={1} />
+          </div>
+        </div>
+        <div className="mt-2 flex flex-col items-baseline justify-between">
+          <Skeleton containerClassName="rounded-lg" className="w-full" count={1} height={30} width={300} />
+        </div>
       </div>
-      <div className="flex flex-col gap-1">
-        <Skeleton className="rounded-lg" count={1} height={300} width={300} />
-        <Skeleton className="rounded-lg" count={1} height={30} width={300} />
+      <div className="mt-4">
+        <div className="w-full rounded-lg">
+          <div className="relative aspect-square">
+            <Skeleton className="absolute inset-0 w-full h-full" count={1} />
+          </div>
+        </div>
+        <div className="mt-2 flex flex-col items-baseline justify-between">
+          <Skeleton containerClassName="rounded-lg" className="w-full" count={1} height={30} width={300} />
+        </div>
       </div>
-      <div className="flex flex-col gap-1">
-        <Skeleton className="rounded-lg" count={1} height={300} width={300} />
-        <Skeleton className="rounded-lg" count={1} height={30} width={300} />
+      <div className="mt-4">
+        <div className="w-full rounded-lg">
+          <div className="relative aspect-square">
+            <Skeleton className="absolute inset-0 w-full h-full" count={1} />
+          </div>
+        </div>
+        <div className="mt-2 flex flex-col items-baseline justify-between">
+          <Skeleton containerClassName="rounded-lg" className="w-full" count={1} height={30} width={300} />
+        </div>
       </div>
     </div>
   );
@@ -27,10 +52,12 @@ export function ListingListSkeleton() {
 
 export function ListingDetailSkeleton() {
   return (
-    <div className="grid lg:grid-cols-2 sm:grid-cols-1 p-4">
+    <div className="grid md:grid-cols-2 sm:grid-cols-1 p-4">
       <div className="p-4">
         <div className="w-full rounded-lg overflow-hidden shadow-lg">
-          <Skeleton height={790} width={790} />
+          <div className="relative aspect-square">
+            <Skeleton className="absolute inset-0 w-full h-full" />
+          </div>
         </div>
       </div>
       <div className="p-4">

@@ -86,7 +86,7 @@ function App() {
     setToken(null);
   }
 
-  function hasBookedListing(id: string) {
+  function hasBookedListing(id: string): boolean {
     return bookings.has(id);
   }
 

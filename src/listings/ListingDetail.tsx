@@ -1,14 +1,14 @@
 import { useParams } from "react-router-dom";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import ShareBnbApi from "../api/api";
 import { ListingInterface } from "../interfaces";
-import { UserContext } from "../contexts";
+import { useCurrentUser } from "../contexts";
 import { getErrorMsg } from "../utils";
 import { ListingDetailSkeleton } from "../skeletons";
 
 function ListingDetail() {
   const { id } = useParams();
-  const { hasBookedListing, bookListing, cancelBooking, currentUser } = useContext(UserContext);
+  const { hasBookedListing, bookListing, cancelBooking, currentUser } = useCurrentUser();
 
   const [listing, setListing] = useState<ListingInterface | null>(null);
   const [errors, setErrors] = useState<string[]>([]);
@@ -43,7 +43,7 @@ function ListingDetail() {
   if (!listing) return <ListingDetailSkeleton />;
 
   return (
-    <div className="grid lg:grid-cols-2 sm:grid-cols-1 p-4">
+    <div className="grid md:grid-cols-2 sm:grid-cols-1 p-4">
       <div className="p-4">
         <div className="w-full rounded-lg overflow-hidden shadow-lg">
           <img className="object-cover object-center w-full aspect-square" src={`${listing.photoUrl}`} />

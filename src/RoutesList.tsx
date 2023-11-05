@@ -5,8 +5,7 @@ import LoginForm from "./auth/LoginForm";
 import SignupForm from "./auth/SignupForm";
 import { ListingInterface, LoginFormInterface, SignupFormInterface } from "./interfaces";
 import ListingForm from "./listings/ListingForm";
-import { useContext } from "react";
-import { UserContext } from "./contexts";
+import { useCurrentUser } from "./contexts";
 import MessagePage from "./messages/MessagePage";
 import ListingDetail from "./listings/ListingDetail";
 import ProfilePage from "./profile/ProfilePage";
@@ -26,7 +25,7 @@ interface RoutesListProps {
  */
 
 function RoutesList({ login, signup, addListing, listings }: RoutesListProps) {
-    const { currentUser } = useContext(UserContext);
+    const { currentUser } = useCurrentUser();
 
 
     return (
