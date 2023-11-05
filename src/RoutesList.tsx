@@ -15,7 +15,7 @@ interface RoutesListProps {
     login: (data: LoginFormInterface) => Promise<void>;
     signup: (data: SignupFormInterface) => Promise<void>;
     addListing: (data: ListingInterface) => void;
-    listings: ListingInterface[];
+    listings: ListingInterface[] | null;
 }
 
 /** Site-wide routes.

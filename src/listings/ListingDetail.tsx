@@ -3,8 +3,8 @@ import { useContext, useEffect, useState } from "react";
 import ShareBnbApi from "../api/api";
 import { ListingInterface } from "../interfaces";
 import { UserContext } from "../contexts";
-import Loading from "../common/Loading";
 import { getErrorMsg } from "../utils";
+import { ListingDetailSkeleton } from "../skeletons";
 
 function ListingDetail() {
   const { id } = useParams();
@@ -40,16 +40,14 @@ function ListingDetail() {
     }
   }
 
-  if (!listing) return <Loading />;
+  if (!listing) return <ListingDetailSkeleton />;
 
   return (
-    <div className="grid grid-cols-2 p-4">
+    <div className="grid lg:grid-cols-2 sm:grid-cols-1 p-4">
       <div className="p-4">
         <div className="w-full rounded-lg overflow-hidden shadow-lg">
-
           <img className="object-cover object-center w-full aspect-square" src={`${listing.photoUrl}`} />
         </div>
-
       </div>
       <div className="p-4">
 

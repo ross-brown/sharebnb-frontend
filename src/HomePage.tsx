@@ -3,11 +3,10 @@ import ListingList from "./listings/ListingList";
 import { ListingInterface } from "./interfaces";
 // import ShareBnbApi from "./api/api";
 // import { SearchContext } from "./contexts";
-import Loading from "./common/Loading";
 import SplashPage from "./SplashPage";
 
 interface HomePageProps {
-    listings: ListingInterface[];
+    listings: ListingInterface[] | null;
 }
 
 function HomePage({ listings }: HomePageProps) {
@@ -24,8 +23,6 @@ function HomePage({ listings }: HomePageProps) {
     //     console.log(listings, "listings state");
     //     setListings(listings);
     // }
-
-    if (!listings) return <Loading />;
 
     return (
         <>

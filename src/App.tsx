@@ -28,7 +28,7 @@ function App() {
   const [token, setToken] = useState<string | null>(localStorage.getItem("sharebnb-token"));
   const [searchTerm, setSearchTerm] = useState("");
   const [bookings, setBookings] = useState(new Set<string>([]));
-  const [listings, setListings] = useState<ListingInterface[]>([]);
+  const [listings, setListings] = useState<ListingInterface[] | null>(null);
 
   useEffect(() => {
     async function getUser() {
@@ -67,7 +67,7 @@ function App() {
 
 
   function addListing(listing: ListingInterface) {
-    setListings(list => [...list, listing]);
+    setListings(list => [...list!, listing]);
   }
 
 
