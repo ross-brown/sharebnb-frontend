@@ -123,7 +123,7 @@ function SignupForm({ signup }: SignupFormProps) {
             </div>
           </div>
         }
-        {formErrors.length > 0 && <Alert errors={formErrors} />}
+        {formErrors.length > 0 && <Alert messages={formErrors} />}
       </form>
     </div>
   );

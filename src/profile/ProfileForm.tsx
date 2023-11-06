@@ -4,6 +4,7 @@ import ShareBnbApi from "../api/api";
 import { ProfileFormInterface } from "../interfaces";
 import Alert from "../common/Alert";
 import { getErrorMsg } from "../utils";
+import { Spinner } from "../common/Spinner";
 
 
 function ProfileForm() {
@@ -16,6 +17,7 @@ function ProfileForm() {
     });
     const [formErrors, setFormErrors] = useState<string[][] | string[]>([]);
     const [isSaved, setIsSaved] = useState(false);
+    const [isSaving, setIsSaving] = useState(false);
 
     function handleChange(evt: React.ChangeEvent<HTMLInputElement>) {
         const { name, value } = evt.target;
@@ -27,6 +29,9 @@ function ProfileForm() {
 
     async function handleSubmit(evt: React.FormEvent<HTMLFormElement>) {
         evt.preventDefault();
+        setIsSaving(true);
+        setIsSaved(false);
+        setFormErrors([]);
 
         const profileData: ProfileFormInterface = {
             firstName: formData.firstName,
@@ -49,7 +54,9 @@ function ProfileForm() {
             setFormData(fData => ({ ...fData }));
             setFormErrors([]);
             setIsSaved(true);
+            setIsSaving(false);
         } catch (errors) {
+            setIsSaving(false);
             const messages = getErrorMsg(errors);
             setFormErrors(messages);
         }
@@ -92,16 +99,27 @@ function ProfileForm() {
                     className="shadow appearance-none border rounded w-full py-2 px-3 text-neutral 700 leading-tight focus:outline-none focus:ring focus:ring-green-500 focus:ring-opacity-50 focus:shadow-outline"
                 />
             </div>
-            {formErrors.length > 0 && <Alert errors={formErrors} />}
-            {isSaved && "Updated successfully"}
             <div className="mb-4">
-                <button className="mx-auto mt-12 block px-5 py-3 rounded-lg
-                        bg-green-600 hover:bg-green-500 focus:outline-none
+                <button
+                    className="mx-auto mt-12 block px-5 py-3 rounded-lg
+                        bg-green-600 enabled:hover:bg-green-500 focus:outline-none
                         focus:ring focus:ring-offset-2 focus:ring-green-400
                         focus:ring-opacity-50 active:bg-green-700
                         text-white shadow-lg uppercase tracking-wider
-                        font-semibold text-sm sm:text-base">Save Changes</button>
+                        font-semibold text-sm sm:text-base disabled:opacity-50"
+                    disabled={isSaving}
+                >Save Changes</button>
             </div>
+            {isSaving &&
+                <div className="flex justify-center m-6 font-semibold text-xl">
+                    <div role="status">
+                        <Spinner />
+                        <span className="sr-only">Loading...</span>
+                    </div>
+                </div>
+            }
+            {formErrors.length > 0 && <Alert messages={formErrors} />}
+            {isSaved && <Alert type="success" messages={["Updated successfully"]} />}
         </form>
     );
 }
