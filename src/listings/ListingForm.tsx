@@ -62,6 +62,10 @@ function ListingForm({ addListing }: ListingFormProps) {
     }
   }
 
+  function isFormFilledOut() {
+    return Object.values(formData).every(val => val.trim()) && photo;
+  }
+
 
   return (
     <div className="min-h-screen bg-[url('https://picsum.photos/id/434/2000/1333')] p-20 bg-bottom">
@@ -123,11 +127,12 @@ function ListingForm({ addListing }: ListingFormProps) {
         </div>
         {formErrors.length > 0 && "NO PHOTO"}
         <button className="mx-auto mt-12 block px-5 py-3 rounded-lg
-                        bg-green-600 hover:bg-green-500 focus:outline-none
+                        bg-green-600 enabled:hover:bg-green-500 focus:outline-none
                         focus:ring focus:ring-offset-2 focus:ring-green-400
-                        focus:ring-opacity-50 active:bg-green-700
+                        focus:ring-opacity-50 enabled:active:bg-green-700
                         text-white shadow-lg uppercase tracking-wider
-                        font-semibold text-sm sm:text-base">Submit</button>
+                        font-semibold text-sm sm:text-base disabled:opacity-50"
+          disabled={!isFormFilledOut()}>Submit</button>
       </form>
     </div>
   );
