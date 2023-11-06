@@ -1,8 +1,8 @@
 import { formatError } from "../utils";
 
 const colors = {
-  danger: "red",
-  success: "green"
+  danger: "text-red-500 border-red-500 bg-red-200",
+  success: "text-green-500 border-green-500 bg-green-200"
 };
 
 
@@ -20,8 +20,7 @@ function Alert({ type = "danger", messages = [] }: AlertProps) {
   const color = colors[type];
 
   return (
-    <div className={`text-${color}-500 text-center font-semibold text-lg mt-6 border border-${color}-500
-     bg-${color}-200 rounded pt-2 px-2 w-80 mx-auto`} role="alert">
+    <div className={`${color} text-center font-semibold text-lg mt-6 border rounded pt-2 px-2 w-80 mx-auto`} role="alert">
       {Array.isArray(messages[0])
         ? messages[0].map((err, i) => {
           return (
