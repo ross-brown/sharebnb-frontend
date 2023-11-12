@@ -113,7 +113,7 @@ function SignupForm({ signup }: SignupFormProps) {
                         focus:ring focus:ring-offset-2 focus:ring-green-400
                         focus:ring-opacity-50 active:bg-green-700
                         text-white shadow-lg uppercase tracking-wider
-                        font-semibold text-sm sm:text-base">Log In</button>
+                        font-semibold text-sm sm:text-base">Sign up</button>
         </div>
         {isLoading &&
           <div className="flex justify-center m-6 font-semibold text-xl">
