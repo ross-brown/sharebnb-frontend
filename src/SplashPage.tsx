@@ -38,7 +38,7 @@ function SplashPage() {
             </div>
             <div className="hidden lg:block relative 2xl:col-span-3">
                 <img className="absolute inset-0 h-full w-full object-cover object-center"
-                    src="https://picsum.photos/id/434/4000/2667" />
+                    src="https://picsum.photos/id/434/4000/2667" alt="forest lake with mountains in the background" />
             </div>
         </div>
 
