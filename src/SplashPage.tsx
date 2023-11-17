@@ -10,7 +10,7 @@ function SplashPage() {
             <div id="container" className="px-8 py-12 max-w-md mx-auto sm:max-w-xl
              lg:px-12 lg:py-24 lg:max-w-full xl:mr-0 2xl:col-span-2">
                 <div className="xl:max-w-xl">
-                    <img src="https://picsum.photos/id/434/4000/2667"
+                    <img src="https://picsum.photos/id/434/4000/2667" alt="forest lake with mountains in the background"
                         className="mt-6 rounded-lg shadow-xl sm:mt-8 sm:h-64
                          sm:w-full sm:object-cover object-top lg:hidden" />
                     <h2 className="mt-6 text-2xl font-bold text-neutral-800

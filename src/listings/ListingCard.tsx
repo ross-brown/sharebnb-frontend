@@ -12,7 +12,7 @@ function ListingCard({ id, title, price, photoUrl }: ListingCardProps) {
         <Link to={`/listings/${id}`} className="mt-4">
             <div className="w-full rounded-lg overflow-hidden shadow mb-3">
                 <img className="object-cover object-center w-full aspect-square"
-                    src={`${photoUrl}`} />
+                    src={`${photoUrl}`} alt={`listing image of ${title}`} />
             </div>
             <div className="flex flex-col items-baseline justify-between">
                 <h3 className="text-xl text-neutral-900">{title}</h3>
