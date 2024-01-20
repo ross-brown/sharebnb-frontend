@@ -10,7 +10,7 @@ class ShareBnbApi {
   // the token for interactive with the API will be stored here.
   static token: string;
 
-  static async request(endpoint: string, data = {}, method = "GET"): Promise<any> {
+  static async request(endpoint: string, data = {}, method = "GET") {
     const url = new URL(`${BASE_URL}/${endpoint}`);
     const headers = {
       authorization: `Bearer ${ShareBnbApi.token}`,
@@ -40,7 +40,7 @@ class ShareBnbApi {
   }
 
   /** Makes a request using multipart/form-data */
-  static async multipartRequest(endpoint: string, data: FormData, method: "POST" | "PATCH"): Promise<any> {
+  static async multipartRequest(endpoint: string, data: FormData, method: "POST" | "PATCH") {
     const url = new URL(`${BASE_URL}/${endpoint}`);
     const headers = {
       authorization: `Bearer ${ShareBnbApi.token}`,
