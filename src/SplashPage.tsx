@@ -1,3 +1,4 @@
+import Button from "./common/Button";
 import { useCurrentUser } from "./contexts";
 import { Link } from "react-router-dom";
 
@@ -25,13 +26,10 @@ function SplashPage() {
                         ShareB&B is an outdoor space hosting service. Find a backyard, pool, or beach for your next birthday party, wedding, or date night. Host your own space and share your own slice of the beautiful outdoors.
                     </p>
                     <div className="mt-4 sm:mt-6">
-                        <Link to={currentUser ? "listings/new" : "/signup"} className="inline-block px-5 py-3 rounded-lg
-                        bg-green-600 hover:bg-green-500 focus:outline-none
-                        focus:ring focus:ring-offset-2 focus:ring-green-400
-                        focus:ring-opacity-50 active:bg-green-700
-                        text-white shadow-lg uppercase tracking-wider
-                        font-semibold text-sm sm:text-base">
-                            {currentUser ? "Share your space" : "Sign up today"}
+                        <Link to={currentUser ? "listings/new" : "/signup"} className="inline-block">
+                            <Button color="green">
+                                {currentUser ? "Share your space" : "Sign up today"}
+                            </Button>
                         </Link>
                     </div>
                 </div>

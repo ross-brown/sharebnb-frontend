@@ -4,6 +4,7 @@ import { SignupFormInterface } from "../interfaces";
 import Alert from "../common/Alert";
 import { getErrorMsg } from "../utils";
 import { Spinner } from "../common/Spinner";
+import Button from "../common/Button";
 
 
 interface SignupFormProps {
@@ -107,13 +108,8 @@ function SignupForm({ signup }: SignupFormProps) {
             className="shadow appearance-none border rounded w-full py-2 px-3 text-neutral 700 leading-tight focus:outline-none focus:ring focus:ring-green-500 focus:ring-opacity-50 focus:shadow-outline"
           />
         </div>
-        <div className="mb-4">
-          <button className="mx-auto mt-12 block px-5 py-3 rounded-lg
-                        bg-green-600 hover:bg-green-500 focus:outline-none
-                        focus:ring focus:ring-offset-2 focus:ring-green-400
-                        focus:ring-opacity-50 active:bg-green-700
-                        text-white shadow-lg uppercase tracking-wider
-                        font-semibold text-sm sm:text-base">Sign up</button>
+        <div className="flex justify-center">
+          <Button color="green">Sign up</Button>
         </div>
         {isLoading &&
           <div className="flex justify-center m-6 font-semibold text-xl">

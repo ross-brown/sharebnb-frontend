@@ -5,15 +5,17 @@ import { ListingInterface } from "../interfaces";
 import { useCurrentUser } from "../contexts";
 import { getErrorMsg } from "../utils";
 import { ListingDetailSkeleton } from "../skeletons";
+import ListingDetailContent from "./ListingDetailContent";
+import Button from "../common/Button";
+import ListingEditForm from "./ListingEditForm";
 
 function ListingDetail() {
   const { id } = useParams();
   const { hasBookedListing, bookListing, cancelBooking, currentUser } = useCurrentUser();
 
   const [listing, setListing] = useState<ListingInterface | null>(null);
-  const [errors, setErrors] = useState<string[]>([]);
   const [booked, setBooked] = useState<boolean>();
-
+  const [isEditMode, setIsEditMode] = useState(false);
 
   useEffect(() => {
     async function getListing() {
@@ -23,8 +25,7 @@ function ListingDetail() {
         setBooked(hasBookedListing(listing.id));
       } catch (errs) {
         const messages = getErrorMsg(errs);
-        setErrors(messages);
-        console.log(errors);
+        console.log(messages);
       }
     }
     getListing();
@@ -47,7 +48,8 @@ function ListingDetail() {
   }
 
   function handleEdit() {
-    console.log("Clicked Edit button");
+    console.log("handle edit called");
+    setIsEditMode(true);
   }
 
   if (!listing) return <ListingDetailSkeleton />;
@@ -60,51 +62,24 @@ function ListingDetail() {
         </div>
       </div>
       <div className="p-4">
-        <h1 className="text-2xl font-bold text-neutral-800">{listing.title}</h1>
-        <p className="text-lg font-medium text-neutral-600"> hosted by {listing.ownerUsername}</p>
-        <p className="text-neutral-900 text-lg mt-6">{listing.description}</p>
-        <p className="mt-4 text-lg font-medium text-neutral-600">{listing.location}</p>
-        <p className="text-lg font-medium text-neutral-600">{listing.type}</p>
-        <p className="text-lg font-medium text-neutral-600">${listing.price} / day</p>
-        {(currentUser && listing.ownerUsername !== currentUser.username) &&
-          <button
-            onClick={handleBooking}
-            className="mt-12 block px-5 py-3 rounded-lg
-          bg-green-600 hover:bg-green-500 focus:outline-none
-            focus:ring focus:ring-offset-2 focus:ring-green-400
-            focus:ring-opacity-50 active:bg-green-700
-          text-white shadow-lg uppercase tracking-wider
-            font-semibold text-sm sm:text-base"
-          >
-            {booked ? `Cancel reservation` : `Book now!`}
-          </button>
+        {isEditMode
+          ? <ListingEditForm listingData={listing} onClose={() => setIsEditMode(false)} />
+          :
+          <>
+            <ListingDetailContent listing={listing} />
+            {(currentUser && listing.ownerUsername !== currentUser.username) && (
+              <Button color="green" onClick={handleBooking}>
+                {booked ? `Cancel reservation` : `Book now!`}
+              </Button>
+            )}
+            {(currentUser && listing.ownerUsername === currentUser.username) && (
+              <div className="flex flex-col items-start">
+                <Button color="green" onClick={handleEdit}>Edit Listing</Button>
+                <Button color="rose" onClick={handleRemove}>Delete Listing</Button>
+              </div>
+            )}
+          </>
         }
-        {(currentUser && listing.ownerUsername === currentUser.username) && (
-          <div className="flex flex-col items-start gap-y-6 mt-6">
-            <button
-              onClick={handleEdit}
-              className="block px-5 py-3 rounded-lg
-              bg-green-600 hover:bg-green-500 focus:outline-none
-                focus:ring focus:ring-offset-2 focus:ring-green-400
-                focus:ring-opacity-50 active:bg-green-700
-              text-white shadow-lg uppercase tracking-wider
-                font-semibold text-sm sm:text-base"
-            >
-              Edit Listing
-            </button>
-            <button
-              onClick={handleRemove}
-              className="block px-5 py-3 rounded-lg
-              bg-rose-600 hover:bg-rose-500 focus:outline-none
-                focus:ring focus:ring-offset-2 focus:ring-rose-400
-                focus:ring-opacity-50 active:bg-rose-700
-              text-white shadow-lg uppercase tracking-wider
-                font-semibold text-sm sm:text-base"
-            >
-              Delete Listing
-            </button>
-          </div>
-        )}
       </div>
     </div>
   );
