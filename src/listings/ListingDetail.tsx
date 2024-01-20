@@ -20,7 +20,7 @@ function ListingDetail() {
       try {
         const listing = await ShareBnbApi.getListing(id!);
         setListing(listing);
-        setBooked(hasBookedListing!(listing.id));
+        setBooked(hasBookedListing(listing.id));
       } catch (errs) {
         const messages = getErrorMsg(errs);
         setErrors(messages);
@@ -31,13 +31,23 @@ function ListingDetail() {
   }, [hasBookedListing, id]);
 
   function handleBooking() {
+    if (!listing) return;
+
     if (booked) {
-      cancelBooking!(listing!.id);
+      cancelBooking(listing.id);
       setBooked(false);
     } else {
-      bookListing!(listing!.id);
+      bookListing(listing.id);
       setBooked(true);
     }
+  }
+
+  function handleRemove() {
+    console.log("Removed clicked");
+  }
+
+  function handleEdit() {
+    console.log("Clicked Edit button");
   }
 
   if (!listing) return <ListingDetailSkeleton />;
@@ -50,7 +60,6 @@ function ListingDetail() {
         </div>
       </div>
       <div className="p-4">
-
         <h1 className="text-2xl font-bold text-neutral-800">{listing.title}</h1>
         <p className="text-lg font-medium text-neutral-600"> hosted by {listing.ownerUsername}</p>
         <p className="text-neutral-900 text-lg mt-6">{listing.description}</p>
@@ -58,13 +67,44 @@ function ListingDetail() {
         <p className="text-lg font-medium text-neutral-600">{listing.type}</p>
         <p className="text-lg font-medium text-neutral-600">${listing.price} / day</p>
         {(currentUser && listing.ownerUsername !== currentUser.username) &&
-          <button onClick={handleBooking} className=" mt-12 block px-5 py-3 rounded-lg
-        bg-green-600 hover:bg-green-500 focus:outline-none
-        focus:ring focus:ring-offset-2 focus:ring-green-400
-        focus:ring-opacity-50 active:bg-green-700
-        text-white shadow-lg uppercase tracking-wider
-        font-semibold text-sm sm:text-base">{booked ? `Cancel reservation` : `Book now!`}</button>
+          <button
+            onClick={handleBooking}
+            className="mt-12 block px-5 py-3 rounded-lg
+          bg-green-600 hover:bg-green-500 focus:outline-none
+            focus:ring focus:ring-offset-2 focus:ring-green-400
+            focus:ring-opacity-50 active:bg-green-700
+          text-white shadow-lg uppercase tracking-wider
+            font-semibold text-sm sm:text-base"
+          >
+            {booked ? `Cancel reservation` : `Book now!`}
+          </button>
         }
+        {(currentUser && listing.ownerUsername === currentUser.username) && (
+          <div className="flex flex-col items-start gap-y-6 mt-6">
+            <button
+              onClick={handleEdit}
+              className="block px-5 py-3 rounded-lg
+              bg-green-600 hover:bg-green-500 focus:outline-none
+                focus:ring focus:ring-offset-2 focus:ring-green-400
+                focus:ring-opacity-50 active:bg-green-700
+              text-white shadow-lg uppercase tracking-wider
+                font-semibold text-sm sm:text-base"
+            >
+              Edit Listing
+            </button>
+            <button
+              onClick={handleRemove}
+              className="block px-5 py-3 rounded-lg
+              bg-rose-600 hover:bg-rose-500 focus:outline-none
+                focus:ring focus:ring-offset-2 focus:ring-rose-400
+                focus:ring-opacity-50 active:bg-rose-700
+              text-white shadow-lg uppercase tracking-wider
+                font-semibold text-sm sm:text-base"
+            >
+              Delete Listing
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );
