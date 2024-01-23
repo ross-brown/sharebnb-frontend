@@ -4,6 +4,7 @@ import ShareBnbApi from "../api/api";
 import { MessageFormInterface, MessageInterface } from "../interfaces";
 import MessageList from "./MessageList";
 import MessageForm from "./MessageForm";
+import Button from "../common/Button";
 
 interface MessagesInterface {
     sent: MessageInterface[];
@@ -44,14 +45,9 @@ function MessagePage() {
                 <h2 className="text-xl my-4 font-bold text-neutral-800 text-center">Messages</h2>
                 <div className="flex justify-around items-baseline pb-5 px-2 border-b">
                     <h3 className="text-xl font-semibold text-neutral-800">{displayOutbox ? "Outbox" : "Inbox"}</h3>
-                    <button className="px-4 py-2 rounded-lg
-                        bg-neutral-300 hover:bg-neutral-200 focus:outline-none
-                        focus:ring focus:ring-offset-2 focus:ring-green-400
-                        focus:ring-opacity-50 active:bg-neutral-400
-                        text-neutral-800 shadow
-                        font-semibold text-sm sm:text-base" onClick={toggleMessages}>
+                    <Button color="neutral" onClick={toggleMessages}>
                         {displayOutbox ? " See Inbox" : "See Outbox"}
-                    </button>
+                    </Button>
                 </div>
                 <MessageList messages={displayOutbox ? messages.sent : messages.received} />
             </div>

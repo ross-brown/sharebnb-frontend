@@ -3,6 +3,7 @@ import ShareBnbApi from "../api/api";
 import { ListingFormInterface, ListingInterface } from "../interfaces";
 import { useNavigate } from "react-router-dom";
 import { getErrorMsg } from "../utils";
+import Button from "../common/Button";
 
 
 interface ListingFormProps {
@@ -32,7 +33,7 @@ function ListingForm({ addListing }: ListingFormProps) {
     }
   }
 
-  function handleChange(evt: React.ChangeEvent<HTMLInputElement>) {
+  function handleChange(evt: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
     const { name, value } = evt.target;
 
     setFormData(fData => ({ ...fData, [name]: value }));
@@ -91,7 +92,7 @@ function ListingForm({ addListing }: ListingFormProps) {
         </div>
         <div className="mb-4">
           <label className="block text-neutral-700 text-sm font-bold mb-2" htmlFor="file">Description </label>
-          <input
+          <textarea
             name="description"
             onChange={handleChange}
             value={formData.description}
@@ -126,13 +127,13 @@ function ListingForm({ addListing }: ListingFormProps) {
             className="focus:ring focus:ring-green-500 focus:ring-opacity-50 appearance-none block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" />
         </div>
         {formErrors.length > 0 && "NO PHOTO"}
-        <button className="mx-auto mt-12 block px-5 py-3 rounded-lg
-                        bg-green-600 enabled:hover:bg-green-500 focus:outline-none
-                        focus:ring focus:ring-offset-2 focus:ring-green-400
-                        focus:ring-opacity-50 enabled:active:bg-green-700
-                        text-white shadow-lg uppercase tracking-wider
-                        font-semibold text-sm sm:text-base disabled:opacity-50"
-          disabled={!isFormFilledOut()}>Submit</button>
+        <div className="flex justify-center">
+          <Button
+            color="green"
+            disabled={!isFormFilledOut()}>
+            Submit
+          </Button>
+        </div>
       </form>
     </div>
   );

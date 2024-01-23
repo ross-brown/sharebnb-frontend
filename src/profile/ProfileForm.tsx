@@ -5,6 +5,7 @@ import { ProfileFormInterface } from "../interfaces";
 import Alert from "../common/Alert";
 import { getErrorMsg } from "../utils";
 import { Spinner } from "../common/Spinner";
+import Button from "../common/Button";
 
 
 function ProfileForm() {
@@ -99,16 +100,10 @@ function ProfileForm() {
                     className="shadow appearance-none border rounded w-full py-2 px-3 text-neutral 700 leading-tight focus:outline-none focus:ring focus:ring-green-500 focus:ring-opacity-50 focus:shadow-outline"
                 />
             </div>
-            <div className="mb-4">
-                <button
-                    className="mx-auto mt-12 block px-5 py-3 rounded-lg
-                        bg-green-600 enabled:hover:bg-green-500 focus:outline-none
-                        focus:ring focus:ring-offset-2 focus:ring-green-400
-                        focus:ring-opacity-50 active:bg-green-700
-                        text-white shadow-lg uppercase tracking-wider
-                        font-semibold text-sm sm:text-base disabled:opacity-50"
-                    disabled={isSaving}
-                >Save Changes</button>
+            <div className="flex justify-center">
+                <Button color="green" disabled={isSaving} >
+                    Save Changes
+                </Button>
             </div>
             {isSaving &&
                 <div className="flex justify-center m-6 font-semibold text-xl">

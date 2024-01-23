@@ -29,7 +29,7 @@ const formSchema = z.object({
 type FormFields = z.infer<typeof formSchema>;
 
 function ListingEditForm({ listingData, onClose }: ListingEditFormProps) {
-  const { register, handleSubmit, formState: { errors } } = useForm<FormFields>({
+  const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm<FormFields>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       title: listingData.title,
@@ -52,6 +52,7 @@ function ListingEditForm({ listingData, onClose }: ListingEditFormProps) {
     }
 
     if (data.photoUrl[0]) formData.append("photo", data.photoUrl[0]);
+
     try {
       await ShareBnbApi.updateListing(listingData.id, formData);
       onClose();
@@ -116,7 +117,7 @@ function ListingEditForm({ listingData, onClose }: ListingEditFormProps) {
       </div>
       {errors && <div>{errors.photoUrl?.message}</div>}
       <div className="flex justify-center">
-        <Button color="green">Save Changes</Button>
+        <Button color="green" disabled={isSubmitting}>Save Changes</Button>
       </div>
     </form>
   );

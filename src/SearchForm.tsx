@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import searchIcon from "./assets/img/search-icon.svg";
 
 interface SearchFormProps {
     search: (term: string) => void;
@@ -26,9 +27,7 @@ function SearchForm({ search }: SearchFormProps) {
                     focus:ring-green-500 focus:ring-opacity-50 focus:outline-none"></input>
             <button aria-label="Search" className="rounded-full bg-green-600 hover:bg-green-500
                     text-white p-2 absolute right-1 top-1">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-4 h-4">
-                    <path fillRule="evenodd" d="M9 3.5a5.5 5.5 0 100 11 5.5 5.5 0 000-11zM2 9a7 7 0 1112.452 4.391l3.328 3.329a.75.75 0 11-1.06 1.06l-3.329-3.328A7 7 0 012 9z" clipRule="evenodd" />
-                </svg>
+                <img src={searchIcon} alt="search icon" className="w-4 h-4" />
             </button>
         </form>
     );
