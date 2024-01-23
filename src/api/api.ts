@@ -139,7 +139,7 @@ class ShareBnbApi {
   }
 
   /** Save user profile with form data */
-  static async saveProfile(username: string, data: ProfileFormInterface): Promise<Partial<UserInterface>> {
+  static async saveProfile(username: string, data: ProfileFormInterface): Promise<UserInterface> {
     const res = await this.request(`users/${username}`, data, "PATCH");
     return res.user;
   }

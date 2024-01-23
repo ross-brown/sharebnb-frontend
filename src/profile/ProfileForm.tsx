@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { useCurrentUser } from "../contexts";
 import ShareBnbApi from "../api/api";
 import { ProfileFormInterface } from "../interfaces";
@@ -6,45 +5,40 @@ import Alert from "../common/Alert";
 import { getErrorMsg } from "../utils";
 import { Spinner } from "../common/Spinner";
 import Button from "../common/Button";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
 
+const formSchema = z.object({
+    username: z.string(),
+    firstName: z.string().max(30, { message: "Must be fewer than 30 characters" }),
+    lastName: z.string().max(30, { message: "Must be fewer than 30 characters" }),
+    email: z.string().email({ message: "Invalid email address" })
+});
+
+type FormFields = z.infer<typeof formSchema>;
 
 function ProfileForm() {
     const { currentUser, setCurrentUser } = useCurrentUser();
-    const [formData, setFormData] = useState({
-        username: currentUser?.username,
-        firstName: currentUser?.firstName,
-        lastName: currentUser?.lastName,
-        email: currentUser?.email
+    const { register, handleSubmit, formState: { isSubmitting, isSubmitted, isValid, errors } } = useForm<FormFields>({
+        defaultValues: {
+            username: currentUser?.username,
+            firstName: currentUser?.firstName,
+            lastName: currentUser?.lastName,
+            email: currentUser?.email
+        },
+        resolver: zodResolver(formSchema)
     });
-    const [formErrors, setFormErrors] = useState<string[][] | string[]>([]);
-    const [isSaved, setIsSaved] = useState(false);
-    const [isSaving, setIsSaving] = useState(false);
 
-    function handleChange(evt: React.ChangeEvent<HTMLInputElement>) {
-        const { name, value } = evt.target;
-
-        setFormData(fData => ({
-            ...fData, [name]: value
-        }));
-    }
-
-    async function handleSubmit(evt: React.FormEvent<HTMLFormElement>) {
-        evt.preventDefault();
-        setIsSaving(true);
-        setIsSaved(false);
-        setFormErrors([]);
-
+    const onSubmit: SubmitHandler<FormFields> = async ({ username, firstName, lastName, email }) => {
         const profileData: ProfileFormInterface = {
-            firstName: formData.firstName,
-            lastName: formData.lastName,
-            email: formData.email,
+            firstName,
+            lastName,
+            email,
         };
 
-        const username = formData.username!;
-        let updatedUser: any;
-
         try {
-            updatedUser = await ShareBnbApi.saveProfile(username, profileData);
+            const updatedUser = await ShareBnbApi.saveProfile(username, profileData);
             setCurrentUser(currentUser => ({
                 ...currentUser,
                 data: {
@@ -52,60 +46,52 @@ function ProfileForm() {
                     ...updatedUser
                 },
             }));
-            setFormData(fData => ({ ...fData }));
-            setFormErrors([]);
-            setIsSaved(true);
-            setIsSaving(false);
         } catch (errors) {
-            setIsSaving(false);
             const messages = getErrorMsg(errors);
-            setFormErrors(messages);
+            console.error(messages);
         }
-    }
+    };
 
     return (
-        <form className="border-2 max-w-xl mx-auto p-8 bg-neutral-200 rounded-lg shadow-lg" onSubmit={handleSubmit}>
+        <form className="border-2 max-w-xl mx-auto p-8 bg-neutral-200 rounded-lg shadow-lg" onSubmit={handleSubmit(onSubmit)}>
             <h2 className="text-xl mb-4 font-bold text-neutral-800 text-center">Edit your profile</h2>
             <div className="mb-4">
                 <label className="block text-neutral-700 text-sm font-bold mb-2">Username</label>
                 <input
                     disabled
-                    placeholder={formData.username}
+                    placeholder={currentUser?.username}
                     className="shadow appearance-none border rounded w-full py-2 px-3 text-neutral 700 leading-tight focus:outline-none focus:ring focus:ring-green-500 focus:ring-opacity-50 focus:shadow-outline" />
             </div>
             <div className="mb-4">
                 <label className="block text-neutral-700 text-sm font-bold mb-2">First Name</label>
                 <input
+                    {...register("firstName")}
                     name="firstName"
-                    value={formData.firstName}
-                    onChange={handleChange}
                     className="shadow appearance-none border rounded w-full py-2 px-3 text-neutral 700 leading-tight focus:outline-none focus:ring focus:ring-green-500 focus:ring-opacity-50 focus:shadow-outline"
                 />
             </div>
             <div className="mb-4">
                 <label className="block text-neutral-700 text-sm font-bold mb-2">Last Name</label>
                 <input
+                    {...register("lastName")}
                     name="lastName"
-                    value={formData.lastName}
-                    onChange={handleChange}
                     className="shadow appearance-none border rounded w-full py-2 px-3 text-neutral 700 leading-tight focus:outline-none focus:ring focus:ring-green-500 focus:ring-opacity-50 focus:shadow-outline"
                 />
             </div>
             <div className="mb-4">
                 <label className="block text-neutral-700 text-sm font-bold mb-2">Email address</label>
                 <input
+                    {...register("email")}
                     name="email"
-                    value={formData.email}
-                    onChange={handleChange}
                     className="shadow appearance-none border rounded w-full py-2 px-3 text-neutral 700 leading-tight focus:outline-none focus:ring focus:ring-green-500 focus:ring-opacity-50 focus:shadow-outline"
                 />
             </div>
             <div className="flex justify-center">
-                <Button color="green" disabled={isSaving} >
+                <Button color="green" disabled={isSubmitting} >
                     Save Changes
                 </Button>
             </div>
-            {isSaving &&
+            {isSubmitting &&
                 <div className="flex justify-center m-6 font-semibold text-xl">
                     <div role="status">
                         <Spinner />
@@ -113,8 +99,11 @@ function ProfileForm() {
                     </div>
                 </div>
             }
-            {formErrors.length > 0 && <Alert messages={formErrors} />}
-            {isSaved && <Alert type="success" messages={["Updated successfully"]} />}
+            {Object.entries(errors).map(([field, error]) => (
+                <Alert key={field} messages={error.message ? [error?.message] : []} />
+            ))}
+            {(isSubmitted && isValid) && <Alert type="success" messages={["Updated successfully"]} /> }
+            {/* TODO: this doesn't exactly work the way i want...  */}
         </form>
     );
 }
