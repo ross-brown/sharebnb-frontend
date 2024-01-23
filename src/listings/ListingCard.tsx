@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 
 interface ListingCardProps {
-    id: string;
+    id: string | number;
     title: string;
     price: string | number;
     photoUrl: string;
