@@ -52,6 +52,11 @@ function ListingDetail() {
     setIsEditMode(true);
   }
 
+  async function handleClose() {
+    //TODO: find a way to not have to force a reload to see updated lising
+    setIsEditMode(false);
+  }
+
   if (!listing) return <ListingDetailSkeleton />;
 
   return (
@@ -63,7 +68,7 @@ function ListingDetail() {
       </div>
       <div className="p-4">
         {isEditMode
-          ? <ListingEditForm listingData={listing} onClose={() => setIsEditMode(false)} />
+          ? <ListingEditForm listingData={listing} onClose={handleClose} />
           :
           <>
             <ListingDetailContent listing={listing} />
