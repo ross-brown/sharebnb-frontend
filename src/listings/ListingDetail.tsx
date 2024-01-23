@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import ShareBnbApi from "../api/api";
 import { ListingInterface } from "../interfaces";
@@ -8,14 +8,21 @@ import { ListingDetailSkeleton } from "../skeletons";
 import ListingDetailContent from "./ListingDetailContent";
 import Button from "../common/Button";
 import ListingEditForm from "./ListingEditForm";
+import DeleteModal from "../common/DeleteModal";
 
-function ListingDetail() {
+interface ListingDetailProps {
+  removeListing: (id: string) => void;
+}
+
+function ListingDetail({ removeListing }: ListingDetailProps) {
   const { id } = useParams();
   const { hasBookedListing, bookListing, cancelBooking, currentUser } = useCurrentUser();
+  const navigation = useNavigate();
 
   const [listing, setListing] = useState<ListingInterface | null>(null);
   const [booked, setBooked] = useState<boolean>();
   const [isEditMode, setIsEditMode] = useState(false);
+  const [openModal, setOpenModal] = useState(false);
 
   useEffect(() => {
     async function getListing() {
@@ -43,13 +50,11 @@ function ListingDetail() {
     }
   }
 
-  function handleRemove() {
-    console.log("Removed clicked");
-  }
-
-  function handleEdit() {
-    console.log("handle edit called");
-    setIsEditMode(true);
+  /** Called whenever someone comfirms to delete a listing */
+  async function handleRemove() {
+    await ShareBnbApi.deleteListing(id!);
+    removeListing(id!);
+    navigation("/profile");
   }
 
   async function handleClose() {
@@ -79,8 +84,9 @@ function ListingDetail() {
             )}
             {(currentUser && listing.ownerUsername === currentUser.username) && (
               <div className="flex flex-col items-start">
-                <Button color="green" onClick={handleEdit}>Edit Listing</Button>
-                <Button color="rose" onClick={handleRemove}>Delete Listing</Button>
+                <Button color="green" onClick={() => setIsEditMode(true)}>Edit Listing</Button>
+                <Button color="rose" onClick={() => setOpenModal(true)}>Delete Listing</Button>
+                <DeleteModal toggleModal={setOpenModal} open={openModal} onDelete={handleRemove} />
               </div>
             )}
           </>

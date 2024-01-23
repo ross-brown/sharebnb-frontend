@@ -14,6 +14,7 @@ interface RoutesListProps {
     login: (data: LoginFormInterface) => Promise<void>;
     signup: (data: SignupFormInterface) => Promise<void>;
     addListing: (data: ListingInterface) => void;
+    removeListing: (id: string) => void;
     listings: ListingInterface[] | null;
 }
 
@@ -24,14 +25,14 @@ interface RoutesListProps {
  * Non-matched routes render a NotFound page.
  */
 
-function RoutesList({ login, signup, addListing, listings }: RoutesListProps) {
+function RoutesList({ login, signup, addListing, removeListing, listings }: RoutesListProps) {
     const { currentUser } = useCurrentUser();
 
 
     return (
         <Routes>
             <Route path="/" element={<HomePage listings={listings} />} />
-            <Route path="/listings/:id" element={<ListingDetail />} />
+            <Route path="/listings/:id" element={<ListingDetail removeListing={removeListing} />} />
             {!currentUser
                 ?
                 <>

@@ -27,7 +27,7 @@ function App() {
   });
   const [token, setToken] = useState<string | null>(localStorage.getItem("sharebnb-token"));
   const [searchTerm, setSearchTerm] = useState("");
-  const [bookings, setBookings] = useState(new Set<string>([]));
+  const [bookings, setBookings] = useState(new Set<string | number>([]));
   const [listings, setListings] = useState<ListingInterface[] | null>(null);
 
   useEffect(() => {
@@ -70,6 +70,12 @@ function App() {
     setListings(list => [...list!, listing]);
   }
 
+  function removeListing(id: string) {
+    setListings(list => {
+      if (list) return list.filter(listing => listing.id !== +id);
+      return list;
+    });
+  }
 
   async function login(loginData: LoginFormInterface) {
     const token = await ShareBnbApi.login(loginData);
@@ -86,17 +92,17 @@ function App() {
     setToken(null);
   }
 
-  function hasBookedListing(id: string): boolean {
+  function hasBookedListing(id: string | number): boolean {
     return bookings.has(id);
   }
 
-  function bookListing(id: string) {
+  function bookListing(id: string | number) {
     if (hasBookedListing(id)) return;
     ShareBnbApi.bookAListing(id);
     setBookings(new Set([...bookings, id]));
   }
 
-  function cancelBooking(id: string) {
+  function cancelBooking(id: string | number) {
     if (!hasBookedListing(id)) return;
     ShareBnbApi.cancelBooking(id);
     setBookings(bookings => new Set([...bookings].filter(i => i !== id)));
@@ -116,7 +122,7 @@ function App() {
         }}>
           <SearchContext.Provider value={searchTerm}>
             <Navbar logout={logout} search={setSearchTerm} />
-            <RoutesList login={login} signup={signup} addListing={addListing} listings={listings} />
+            <RoutesList login={login} signup={signup} addListing={addListing} removeListing={removeListing} listings={listings} />
           </SearchContext.Provider>
         </UserContext.Provider>
       </BrowserRouter>

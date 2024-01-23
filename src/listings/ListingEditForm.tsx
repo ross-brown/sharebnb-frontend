@@ -4,6 +4,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import ShareBnbApi from "../api/api";
 import Button from "../common/Button";
+import { X } from "lucide-react";
 
 interface ListingEditFormProps {
   listingData: ListingInterface;
@@ -63,7 +64,13 @@ function ListingEditForm({ listingData, onClose }: ListingEditFormProps) {
   };
 
   return (
-    <form className="border-2 max-w-2xl mx-auto p-8 bg-neutral-200 rounded-lg shadow-lg" onSubmit={handleSubmit(onSubmit)}>
+    <form className="border-2 max-w-2xl mx-auto p-5 bg-neutral-200 rounded-lg shadow-lg" onSubmit={handleSubmit(onSubmit)}>
+      <div>
+        <X
+          className="hover:text-neutral-800 hover:bg-neutral-100 rounded-lg cursor-pointer transition"
+          onClick={onClose}
+        />
+      </div>
       <h2 className="text-2xl mb-4 font-bold text-neutral-800 text-center">Edit Your Listing</h2>
       <div className="mb-4">
         <label className="block text-neutral-700 text-sm font-bold mb-2" htmlFor="file">Title </label>

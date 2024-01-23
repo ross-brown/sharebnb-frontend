@@ -5,9 +5,9 @@ import { CurrentUserInterface, UserInterface } from "./interfaces";
 interface UserContextInterface {
   currentUser: UserInterface | null;
   setCurrentUser: React.Dispatch<React.SetStateAction<CurrentUserInterface>>;
-  hasBookedListing: ((id: string) => boolean);
-  bookListing: ((id: string) => void);
-  cancelBooking: ((id: string) => void);
+  hasBookedListing: ((id: string | number) => boolean);
+  bookListing: ((id: string | number) => void);
+  cancelBooking: ((id: string | number) => void);
 }
 
 

@@ -52,7 +52,7 @@ interface BookingInterface {
 }
 
 interface ListingInterface {
-  id: string;
+  id: string | number;
   title: string;
   type: string;
   price: number | string;
