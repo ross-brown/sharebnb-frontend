@@ -7,6 +7,7 @@ import Navbar from './Navbar';
 import { UserContext, SearchContext } from './contexts';
 import decode from "jwt-decode";
 import Loading from './common/Loading';
+import toast, { Toaster } from 'react-hot-toast';
 
 
 /** ShareBnB application
@@ -80,31 +81,34 @@ function App() {
   async function login(loginData: LoginFormInterface) {
     const token = await ShareBnbApi.login(loginData);
     setToken(token);
+    toast.success(`Welcome back!`)
   }
 
   async function signup(signupData: SignupFormInterface) {
     const token = await ShareBnbApi.signup(signupData);
     setToken(token);
+    toast.success("Account successfully created!")
   }
 
   async function logout() {
     setCurrentUser({ data: null, isLoaded: true });
     setToken(null);
+    toast.success("Successfully logged out")
   }
 
   function hasBookedListing(id: string | number): boolean {
     return bookings.has(id);
   }
 
-  function bookListing(id: string | number) {
+  async function bookListing(id: string | number): Promise<void> {
     if (hasBookedListing(id)) return;
-    ShareBnbApi.bookAListing(id);
+    await ShareBnbApi.bookAListing(id);
     setBookings(new Set([...bookings, id]));
   }
 
-  function cancelBooking(id: string | number) {
+  async function cancelBooking(id: string | number): Promise<void> {
     if (!hasBookedListing(id)) return;
-    ShareBnbApi.cancelBooking(id);
+    await ShareBnbApi.cancelBooking(id);
     setBookings(bookings => new Set([...bookings].filter(i => i !== id)));
   }
 
@@ -121,6 +125,18 @@ function App() {
           cancelBooking
         }}>
           <SearchContext.Provider value={searchTerm}>
+            <Toaster
+              position='top-center'
+              toastOptions={{
+                style: {
+                  fontWeight: "bold",
+                  textAlign: "center"
+                },
+                success: {
+                  duration: 4000,
+                }
+              }}
+            />
             <Navbar logout={logout} search={setSearchTerm} />
             <RoutesList login={login} signup={signup} addListing={addListing} removeListing={removeListing} listings={listings} />
           </SearchContext.Provider>

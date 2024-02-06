@@ -9,6 +9,7 @@ import ListingDetailContent from "./ListingDetailContent";
 import Button from "../common/Button";
 import ListingEditForm from "./ListingEditForm";
 import DeleteModal from "../common/DeleteModal";
+import toast from "react-hot-toast";
 
 interface ListingDetailProps {
   removeListing: (id: string) => void;
@@ -38,15 +39,19 @@ function ListingDetail({ removeListing }: ListingDetailProps) {
     getListing();
   }, [hasBookedListing, id]);
 
-  function handleBooking() {
+  async function handleBooking() {
     if (!listing) return;
 
     if (booked) {
-      cancelBooking(listing.id);
+      await cancelBooking(listing.id);
       setBooked(false);
+      toast(`Reservation cancelled for ${listing.title}.`, {
+        icon: "😢"
+      })
     } else {
-      bookListing(listing.id);
+      await bookListing(listing.id);
       setBooked(true);
+      toast.success(`${listing.title} successfully booked!`)
     }
   }
 

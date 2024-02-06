@@ -6,8 +6,8 @@ interface UserContextInterface {
   currentUser: UserInterface | null;
   setCurrentUser: React.Dispatch<React.SetStateAction<CurrentUserInterface>>;
   hasBookedListing: ((id: string | number) => boolean);
-  bookListing: ((id: string | number) => void);
-  cancelBooking: ((id: string | number) => void);
+  bookListing: ((id: string | number) => Promise<void>);
+  cancelBooking: ((id: string | number) => Promise<void>);
 }
 
 

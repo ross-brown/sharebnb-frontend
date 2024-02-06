@@ -47,6 +47,7 @@ function LoginForm({ login }: LoginFormProps) {
         <input
           id="username"
           name="username"
+          autoComplete="username"
           value={formData.username}
           onChange={handleChange}
           required
@@ -59,6 +60,7 @@ function LoginForm({ login }: LoginFormProps) {
           type="password"
           id="password"
           name="password"
+          autoComplete="current-password"
           value={formData.password}
           onChange={handleChange}
           required
@@ -66,7 +68,12 @@ function LoginForm({ login }: LoginFormProps) {
         />
       </div>
       <div className="flex justify-center">
-        <Button color="green">Log in</Button>
+        <Button color="green" disabled={isLoading}>Log in</Button>
+      </div>
+      <div className="italic text-gray-600 flex flex-col">
+        <p className="underline font-semibold">Guest Credentials:</p>
+        <p>Username: <span className="font-semibold">testuser</span></p>
+        <p>Password: <span className="font-semibold">password</span></p>
       </div>
       {isLoading &&
         <div className="flex justify-center m-6 font-semibold text-xl">
