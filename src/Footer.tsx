@@ -1,3 +1,4 @@
+import { CgWebsite } from "react-icons/cg";
 import { FaLinkedin } from "react-icons/fa";
 import { VscGithubInverted } from "react-icons/vsc";
 
@@ -12,6 +13,9 @@ function Footer() {
           </a>
           <a href="https://www.linkedin.com/in/ross-brown-/" className="text-gray-500">
             <FaLinkedin className="h-6 w-6" />
+          </a>
+          <a href="https://rossbrowndev.com" className="text-gray-500">
+            <CgWebsite className="h-6 w-6" />
           </a>
         </div>
         <div className="mt-8 md:order-1 md:mt-0">
