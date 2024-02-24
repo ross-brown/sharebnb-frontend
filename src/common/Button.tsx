@@ -10,9 +10,9 @@ interface ButtonProps {
 
 function Button({ children, color, onClick, disabled, type }: ButtonProps) {
   const colorVariants = {
-    green: "bg-green-600 hover:bg-green-500 focus:ring-green-400 active:bg-green-700 text-white",
-    rose: "bg-rose-600 hover:bg-rose-500 focus:ring-rose-400 active:bg-rose-700 text-white",
-    neutral: "bg-neutral-300 hover:bg-neutral-200 focus:ring-neutral-400 active:bg-neutral-400 text-neutral-800",
+    green: "bg-green-600 hover:bg-green-700 focus:ring-green-400 active:bg-green-700 text-white",
+    rose: "bg-rose-600 hover:bg-rose-700 focus:ring-rose-400 active:bg-rose-700 text-white",
+    neutral: "bg-neutral-300 hover:bg-neutral-400 focus:ring-neutral-400 active:bg-neutral-400 text-neutral-800",
   };
 
   return (

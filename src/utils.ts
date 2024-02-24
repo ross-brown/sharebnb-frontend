@@ -21,4 +21,8 @@ function formatError(err: string) {
   return formatted.slice(0, 1).toUpperCase() + formatted.slice(1);
 }
 
-export { getErrorMsg, formatError };
+function classNames(...classes: string[]): string {
+  return classes.filter(Boolean).join(' ');
+}
+
+export { getErrorMsg, formatError, classNames };
