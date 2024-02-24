@@ -27,7 +27,6 @@ class ShareBnbApi {
       : undefined;
 
     const resp = await fetch(url, { method, body, headers });
-    console.log("fetch request resp=", resp);
 
     //fetch API does not throw an error, have to dig into the resp for msgs
     if (!resp.ok) {
