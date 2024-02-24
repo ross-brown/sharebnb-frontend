@@ -8,6 +8,7 @@ import { UserContext, SearchContext } from './contexts';
 import decode from "jwt-decode";
 import Loading from './common/Loading';
 import toast, { Toaster } from 'react-hot-toast';
+import Footer from './Footer';
 
 
 /** ShareBnB application
@@ -81,19 +82,19 @@ function App() {
   async function login(loginData: LoginFormInterface) {
     const token = await ShareBnbApi.login(loginData);
     setToken(token);
-    toast.success(`Welcome back!`)
+    toast.success(`Welcome back!`);
   }
 
   async function signup(signupData: SignupFormInterface) {
     const token = await ShareBnbApi.signup(signupData);
     setToken(token);
-    toast.success("Account successfully created!")
+    toast.success("Account successfully created!");
   }
 
   async function logout() {
     setCurrentUser({ data: null, isLoaded: true });
     setToken(null);
-    toast.success("Successfully logged out")
+    toast.success("Successfully logged out");
   }
 
   function hasBookedListing(id: string | number): boolean {
@@ -139,6 +140,7 @@ function App() {
             />
             <Navbar logout={logout} search={setSearchTerm} />
             <RoutesList login={login} signup={signup} addListing={addListing} removeListing={removeListing} listings={listings} />
+            <Footer />
           </SearchContext.Provider>
         </UserContext.Provider>
       </BrowserRouter>

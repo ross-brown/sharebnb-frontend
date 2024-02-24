@@ -27,10 +27,9 @@ function HomePage({ listings }: HomePageProps) {
     return (
         <>
             <SplashPage />
-            <ListingList title="Check out our spaces" listings={listings} />;
+            <ListingList title="Check out our spaces" listings={listings} />
         </>
     );
-
 }
 
 export default HomePage;
