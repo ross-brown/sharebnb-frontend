@@ -27,7 +27,7 @@ function SearchForm({ search }: SearchFormProps) {
                 aria-label="Search"
                 value={searchTerm}
                 onChange={handleChange}
-                className="w-64 py-2 px-3 rounded-3xl shadow-md text-neutral-900 focus:ringfocus:ring-green-500 focus:ring-opacity-50 focus:outline-none" />
+                className="sm:w-64 py-2 px-3 rounded-3xl shadow-md text-neutral-900 focus:ringfocus:ring-green-500 focus:ring-opacity-50 focus:outline-none" />
             <button
                 aria-label="Search"
                 className="rounded-full bg-green-600 hover:bg-green-700 text-white p-2 absolute right-1 top-1"

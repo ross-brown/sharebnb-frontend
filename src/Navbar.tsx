@@ -47,7 +47,7 @@ function Navbar({ logout, search }: NavbarProps) {
     }
 
     return (
-        <header className="flex justify-between bg-neutral-100 py-4 px-10">
+        <header className="flex justify-between bg-neutral-100 py-4 sm:px-10 px-6">
             <div className="flex justify-between items-center">
                 <Link className="flex" to="/">
                     <img src={logo} alt="ShareBnB logo" className="h-10 w-10" />
