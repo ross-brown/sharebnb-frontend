@@ -54,37 +54,56 @@ function ProfileForm() {
 
     return (
         <form className="border-2 max-w-xl mx-auto p-8 bg-neutral-200 rounded-lg shadow-lg my-8" onSubmit={handleSubmit(onSubmit)}>
-            <h2 className="text-xl mb-4 font-bold text-neutral-800 text-center">Edit your profile</h2>
+            <h2 className="mb-5 text-center text-2xl font-bold leading-9 tracking-tight text-neutral-800">
+                Edit your profile
+            </h2>
             <div className="mb-4">
-                <label className="block text-neutral-700 text-sm font-bold mb-2">Username</label>
-                <input
-                    disabled
-                    placeholder={currentUser?.username}
-                    className="shadow appearance-none border rounded w-full py-2 px-3 text-neutral 700 leading-tight focus:outline-none focus:ring focus:ring-green-500 focus:ring-opacity-50 focus:shadow-outline" />
+                <label className="block text-sm text-neutral-900 font-medium leading-6">
+                    Username
+                </label>
+                <div className="mt-2">
+                    <input
+                        disabled
+                        placeholder={currentUser?.username}
+                        className="shadow appearance-none border rounded w-full py-2 px-3 text-neutral 700 leading-tight focus:outline-none focus:ring focus:ring-green-500 focus:ring-opacity-50 focus:shadow-outline"
+                    />
+                </div>
             </div>
             <div className="mb-4">
-                <label className="block text-neutral-700 text-sm font-bold mb-2">First Name</label>
-                <input
-                    {...register("firstName")}
-                    name="firstName"
-                    className="shadow appearance-none border rounded w-full py-2 px-3 text-neutral 700 leading-tight focus:outline-none focus:ring focus:ring-green-500 focus:ring-opacity-50 focus:shadow-outline"
-                />
+                <label className="block text-sm text-neutral-900 font-medium leading-6">
+                    First Name
+                </label>
+                <div className="mt-2">
+                    <input
+                        {...register("firstName")}
+                        name="firstName"
+                        className="shadow appearance-none border rounded w-full py-2 px-3 text-neutral 700 leading-tight focus:outline-none focus:ring focus:ring-green-500 focus:ring-opacity-50 focus:shadow-outline"
+                    />
+                </div>
             </div>
             <div className="mb-4">
-                <label className="block text-neutral-700 text-sm font-bold mb-2">Last Name</label>
-                <input
-                    {...register("lastName")}
-                    name="lastName"
-                    className="shadow appearance-none border rounded w-full py-2 px-3 text-neutral 700 leading-tight focus:outline-none focus:ring focus:ring-green-500 focus:ring-opacity-50 focus:shadow-outline"
-                />
+                <label className="block text-sm text-neutral-900 font-medium leading-6">
+                    Last Name
+                </label>
+                <div className="mt-2">
+                    <input
+                        {...register("lastName")}
+                        name="lastName"
+                        className="shadow appearance-none border rounded w-full py-2 px-3 text-neutral 700 leading-tight focus:outline-none focus:ring focus:ring-green-500 focus:ring-opacity-50 focus:shadow-outline"
+                    />
+                </div>
             </div>
             <div className="mb-4">
-                <label className="block text-neutral-700 text-sm font-bold mb-2">Email address</label>
-                <input
-                    {...register("email")}
-                    name="email"
-                    className="shadow appearance-none border rounded w-full py-2 px-3 text-neutral 700 leading-tight focus:outline-none focus:ring focus:ring-green-500 focus:ring-opacity-50 focus:shadow-outline"
-                />
+                <label className="block text-sm text-neutral-900 font-medium leading-6">
+                    Email address
+                </label>
+                <div className="mt-2">
+                    <input
+                        {...register("email")}
+                        name="email"
+                        className="shadow appearance-none border rounded w-full py-2 px-3 text-neutral 700 leading-tight focus:outline-none focus:ring focus:ring-green-500 focus:ring-opacity-50 focus:shadow-outline"
+                    />
+                </div>
             </div>
             <div className="flex justify-start">
                 <Button color="green" disabled={isSubmitting} >
@@ -94,7 +113,7 @@ function ProfileForm() {
             {isSubmitting &&
                 <div className="flex justify-center m-6 font-semibold text-xl">
                     <div role="status">
-                        <Spinner size="lg"/>
+                        <Spinner size="lg" />
                         <span className="sr-only">Loading...</span>
                     </div>
                 </div>
@@ -102,7 +121,7 @@ function ProfileForm() {
             {Object.entries(errors).map(([field, error]) => (
                 <Alert key={field} messages={error.message ? [error?.message] : []} />
             ))}
-            {(isSubmitted && isValid) && <Alert type="success" messages={["Updated successfully"]} /> }
+            {(isSubmitted && isValid) && <Alert type="success" messages={["Updated successfully"]} />}
             {/* TODO: this doesn't exactly work the way i want...  */}
         </form>
     );

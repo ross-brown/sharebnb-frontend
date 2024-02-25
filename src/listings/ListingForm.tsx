@@ -59,56 +59,76 @@ function ListingForm({ addListing }: ListingFormProps) {
   return (
     <div className="min-h-screen bg-[url('https://picsum.photos/id/434/2000/1333')] p-20 bg-bottom">
       <form className="border-2 max-w-xl mx-auto p-8 bg-neutral-200 rounded-lg shadow-lg" onSubmit={handleSubmit(onSubmit)}>
-        <h2 className="text-xl mb-4 font-bold text-neutral-800 text-center">ShareB&B your space</h2>
+        <h2 className="mb-5 text-center text-2xl font-bold leading-9 tracking-tight text-neutral-800">
+          ShareB&B your space
+        </h2>
         <div className="mb-4">
-          <label className="block text-neutral-700 text-sm font-bold mb-2" htmlFor="file">Title </label>
-          <input
-            required
-            {...register("title")}
-            name="title"
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-neutral 700 leading-tight focus:outline-none focus:ring focus:ring-green-500 focus:ring-opacity-50 focus:shadow-outline" />
+          <label className="block text-sm text-neutral-900 font-medium leading-6" htmlFor="file">Title </label>
+          <div className="mt-2">
+            <input
+              required
+              {...register("title")}
+              name="title"
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-neutral 700 leading-tight focus:outline-none focus:ring focus:ring-green-500 focus:ring-opacity-50 focus:shadow-outline"
+            />
+          </div>
         </div>
         <div className="mb-4">
-          <label className="block text-neutral-700 text-sm font-bold mb-2" htmlFor="file">Type</label>
-          <input
-            required
-            {...register("type")}
-            name="type"
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-neutral 700 leading-tight focus:outline-none focus:ring focus:ring-green-500 focus:ring-opacity-50 focus:shadow-outline" />
+          <label className="block text-sm text-neutral-900 font-medium leading-6" htmlFor="file">Type</label>
+          <div className="mt-2">
+            <input
+              required
+              {...register("type")}
+              name="type"
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-neutral 700 leading-tight focus:outline-none focus:ring focus:ring-green-500 focus:ring-opacity-50 focus:shadow-outline"
+            />
+          </div>
         </div>
         <div className="mb-4">
-          <label className="block text-neutral-700 text-sm font-bold mb-2" htmlFor="file">Description </label>
-          <textarea
-            {...register("description")}
-            rows={4}
-            name="description"
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-neutral 700 leading-tight focus:outline-none focus:ring focus:ring-green-500 focus:ring-opacity-50 focus:shadow-outline" />
+          <label className="block text-sm text-neutral-900 font-medium leading-6" htmlFor="file">Description </label>
+          <div className="mt-2">
+            <textarea
+              {...register("description")}
+              rows={4}
+              name="description"
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-neutral 700 leading-tight focus:outline-none focus:ring focus:ring-green-500 focus:ring-opacity-50 focus:shadow-outline"
+            />
+          </div>
         </div>
         <div className="mb-4">
-          <label className="block text-neutral-700 text-sm font-bold mb-2" htmlFor="file">Price </label>
-          <input
-            required
-            {...register("price")}
-            name="price"
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-neutral 700 leading-tight focus:outline-none focus:ring focus:ring-green-500 focus:ring-opacity-50 focus:shadow-outline" />
+          <label className="block text-sm text-neutral-900 font-medium leading-6" htmlFor="file">Price </label>
+          <div className="mt-2">
+            <input
+              required
+              {...register("price")}
+              name="price"
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-neutral 700 leading-tight focus:outline-none focus:ring focus:ring-green-500 focus:ring-opacity-50 focus:shadow-outline"
+            />
+          </div>
         </div>
         <div className="mb-4">
-          <label className="block text-neutral-700 text-sm font-bold mb-2" htmlFor="file">Location </label>
-          <input
-            required
-            {...register("location")}
-            name="location"
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-neutral 700 leading-tight focus:outline-none focus:ring focus:ring-green-500 focus:ring-opacity-50 focus:shadow-outline" />
+          <label className="block text-sm text-neutral-900 font-medium leading-6" htmlFor="file">Location </label>
+          <div className="mt-2">
+            <input
+              required
+              {...register("location")}
+              name="location"
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-neutral 700 leading-tight focus:outline-none focus:ring focus:ring-green-500 focus:ring-opacity-50 focus:shadow-outline"
+            />
+          </div>
         </div>
         <div className="mb-4">
-          <label className="block text-neutral-700 text-sm font-bold mb-2" htmlFor="file">Photo </label>
-          <input
-            id="file"
-            type="file"
-            {...register("photoUrl")}
-            name="photoUrl"
-            accept="image/*"
-            className="focus:ring focus:ring-green-500 focus:ring-opacity-50 appearance-none block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" />
+          <label className="block text-sm text-neutral-900 font-medium leading-6" htmlFor="file">Photo </label>
+          <div className="mt-2">
+            <input
+              id="file"
+              type="file"
+              {...register("photoUrl")}
+              name="photoUrl"
+              accept="image/*"
+              className="focus:ring focus:ring-green-500 focus:ring-opacity-50 appearance-none block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+            />
+          </div>
         </div>
         {formErrors.length > 0 && "NO PHOTO"}
         <div className="flex justify-center">
