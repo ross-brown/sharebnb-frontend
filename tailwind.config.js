@@ -7,9 +7,12 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        sans: ["Montserrat"]},
+        sans: ["Montserrat"]
+      },
+      screens: {
+        "mdlg": "875px"
+      }
     },
   },
   plugins: [],
-}
-
+};

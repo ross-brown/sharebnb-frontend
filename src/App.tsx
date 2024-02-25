@@ -116,7 +116,7 @@ function App() {
   if (!currentUser.isLoaded) return <Loading />;
 
   return (
-    <div>
+    <div className="flex flex-col min-h-screen">
       <BrowserRouter>
         <UserContext.Provider value={{
           currentUser: currentUser.data,
@@ -139,7 +139,9 @@ function App() {
               }}
             />
             <Navbar logout={logout} search={setSearchTerm} />
-            <RoutesList login={login} signup={signup} addListing={addListing} removeListing={removeListing} listings={listings} />
+            <main className='flex-1'>
+              <RoutesList login={login} signup={signup} addListing={addListing} removeListing={removeListing} listings={listings} />
+            </main>
             <Footer />
           </SearchContext.Provider>
         </UserContext.Provider>
