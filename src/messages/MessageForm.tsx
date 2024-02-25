@@ -86,7 +86,7 @@ function MessageForm({ send }: MessageFormProps) {
         {isSending &&
           <div className="flex justify-center m-6 font-semibold text-xl">
             <div role="status">
-              <Spinner />
+              <Spinner size="lg" />
               <span className="sr-only">Loading...</span>
             </div>
           </div>

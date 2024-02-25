@@ -8,6 +8,7 @@ interface UserContextInterface {
   hasBookedListing: ((id: string | number) => boolean);
   bookListing: ((id: string | number) => Promise<void>);
   cancelBooking: ((id: string | number) => Promise<void>);
+  logout: () => void;
 }
 
 

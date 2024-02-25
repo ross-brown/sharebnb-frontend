@@ -91,7 +91,7 @@ function App() {
     toast.success("Account successfully created!");
   }
 
-  async function logout() {
+  function logout() {
     setCurrentUser({ data: null, isLoaded: true });
     setToken(null);
     toast.success("Successfully logged out");
@@ -123,7 +123,8 @@ function App() {
           setCurrentUser,
           hasBookedListing,
           bookListing,
-          cancelBooking
+          cancelBooking,
+          logout
         }}>
           <SearchContext.Provider value={searchTerm}>
             <Toaster

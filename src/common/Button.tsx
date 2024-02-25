@@ -20,9 +20,9 @@ function Button({ children, color, onClick, disabled, type }: ButtonProps) {
       type={type}
       onClick={onClick}
       disabled={disabled}
-      className={`${colorVariants[color]} mt-4 block px-5 py-3 rounded-lg
+      className={`${colorVariants[color]} mt-4 block px-4 py-3 rounded-lg
       focus:outline-none focus:ring focus:ring-offset-2 focus:ring-opacity-50 disabled:opacity-50
-      shadow-lg uppercase tracking-wider font-semibold text-sm sm:text-base cursor-pointer`}
+      shadow-lg uppercase tracking-wider font-semibold text-xs cursor-pointer`}
     >
       {children}
     </button>

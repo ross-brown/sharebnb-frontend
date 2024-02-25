@@ -53,7 +53,7 @@ function ProfileForm() {
     };
 
     return (
-        <form className="border-2 max-w-xl mx-auto p-8 bg-neutral-200 rounded-lg shadow-lg" onSubmit={handleSubmit(onSubmit)}>
+        <form className="border-2 max-w-xl mx-auto p-8 bg-neutral-200 rounded-lg shadow-lg my-8" onSubmit={handleSubmit(onSubmit)}>
             <h2 className="text-xl mb-4 font-bold text-neutral-800 text-center">Edit your profile</h2>
             <div className="mb-4">
                 <label className="block text-neutral-700 text-sm font-bold mb-2">Username</label>
@@ -86,15 +86,15 @@ function ProfileForm() {
                     className="shadow appearance-none border rounded w-full py-2 px-3 text-neutral 700 leading-tight focus:outline-none focus:ring focus:ring-green-500 focus:ring-opacity-50 focus:shadow-outline"
                 />
             </div>
-            <div className="flex justify-center">
+            <div className="flex justify-start">
                 <Button color="green" disabled={isSubmitting} >
-                    Save Changes
+                    Save
                 </Button>
             </div>
             {isSubmitting &&
                 <div className="flex justify-center m-6 font-semibold text-xl">
                     <div role="status">
-                        <Spinner />
+                        <Spinner size="lg"/>
                         <span className="sr-only">Loading...</span>
                     </div>
                 </div>

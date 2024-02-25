@@ -143,6 +143,12 @@ class ShareBnbApi {
     return res.user;
   }
 
+  /** Deletes a user's account */
+  static async deleteAccount(username: string): Promise<{ deleted: string; }> {
+    const res = await this.request(`users/${username}`, {}, "DELETE");
+    return res.deleted;
+  }
+
   /** Get user's sent messages */
   static async getSentMsgs(username: string): Promise<MessageInterface[]> {
     const res = await this.request(`users/${username}/sent`);

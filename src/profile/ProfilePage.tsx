@@ -5,6 +5,7 @@ import { useCurrentUser } from "../contexts";
 import Loading from "../common/Loading";
 import ShareBnbApi from "../api/api";
 import { ListingInterface } from "../interfaces";
+import DangerZone from "./DangerZone";
 
 function ProfilePage() {
     const { currentUser, hasBookedListing } = useCurrentUser();
@@ -23,13 +24,10 @@ function ProfilePage() {
 
     return (
         <>
-            <div className="mt-8">
-                <ProfileForm />
-            </div>
-            <div>
-                <ListingList title="Your listings" listings={currentUser.listings} />
-                <ListingList title="Your bookings" listings={bookings} />
-            </div>
+            <ProfileForm />
+            <DangerZone />
+            <ListingList title="Your listings" listings={currentUser.listings} />
+            <ListingList title="Your bookings" listings={bookings} />
         </>
     );
 }
