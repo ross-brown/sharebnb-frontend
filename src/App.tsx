@@ -9,6 +9,7 @@ import decode from "jwt-decode";
 import Loading from './common/Loading';
 import toast, { Toaster } from 'react-hot-toast';
 import Footer from './Footer';
+import { useLocalStorage } from './hooks/useLocalStorage';
 
 
 /** ShareBnB application
@@ -27,7 +28,7 @@ function App() {
     data: null,
     isLoaded: false
   });
-  const [token, setToken] = useState<string | null>(localStorage.getItem("sharebnb-token"));
+  const [token, setToken] = useLocalStorage("sharebnb-token", null);
   const [searchTerm, setSearchTerm] = useState("");
   const [bookings, setBookings] = useState(new Set<string | number>([]));
   const [listings, setListings] = useState<ListingInterface[] | null>(null);
@@ -60,13 +61,6 @@ function App() {
     }
     fetchListings();
   }, [searchTerm]);
-
-  useEffect(() => {
-    token
-      ? localStorage.setItem("sharebnb-token", token)
-      : localStorage.removeItem("sharebnb-token");
-  }, [token]);
-
 
   function addListing(listing: ListingInterface) {
     setListings(list => [...list!, listing]);
