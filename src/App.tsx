@@ -28,7 +28,7 @@ function App() {
     data: null,
     isLoaded: false
   });
-  const [token, setToken] = useLocalStorage("sharebnb-token", null);
+  const [token, setToken] = useLocalStorage<string | null>("sharebnb-token", null);
   const [searchTerm, setSearchTerm] = useState("");
   const [bookings, setBookings] = useState(new Set<string | number>([]));
   const [listings, setListings] = useState<ListingInterface[] | null>(null);
