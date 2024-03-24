@@ -28,7 +28,6 @@ interface RoutesListProps {
 function RoutesList({ login, signup, addListing, removeListing, listings }: RoutesListProps) {
     const { currentUser } = useCurrentUser();
 
-
     return (
         <Routes>
             <Route path="/" element={<HomePage listings={listings} />} />

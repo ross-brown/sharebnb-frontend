@@ -1,7 +1,6 @@
 import { createContext, useContext } from "react";
 import { CurrentUserInterface, UserInterface } from "./interfaces";
 
-
 interface UserContextInterface {
   currentUser: UserInterface | null;
   setCurrentUser: React.Dispatch<React.SetStateAction<CurrentUserInterface>>;
@@ -10,7 +9,6 @@ interface UserContextInterface {
   cancelBooking: ((id: string | number) => Promise<void>);
   logout: () => void;
 }
-
 
 const UserContext = createContext<UserContextInterface | null>(null);
 
@@ -24,11 +22,6 @@ const useCurrentUser = () => {
   return currentUserContext;
 };
 
-
-
 const SearchContext = createContext("");
-
-
-
 
 export { useCurrentUser, SearchContext, UserContext };

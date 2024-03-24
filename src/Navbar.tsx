@@ -1,12 +1,12 @@
 import { Fragment } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
+import { Menu, Transition } from "@headlessui/react";
+import { MessageSquareText } from 'lucide-react';
 
 import { useCurrentUser } from "./contexts";
 import { classNames } from "./utils";
 
 import SearchForm from "./SearchForm";
-import { MessageSquareText } from 'lucide-react';
-import { Menu, Transition } from "@headlessui/react";
 import defaultAvatar from "./assets/img/blank-user-avatar.jpg";
 import logo from "./assets/img/icons8-treehouse-80.png";
 

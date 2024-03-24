@@ -62,7 +62,6 @@ interface ListingInterface {
   ownerUsername: string;
 }
 
-
 interface CurrentUserInterface {
   isLoaded: boolean;
   data: UserInterface | null;
@@ -75,8 +74,6 @@ interface MessageInterface {
   body: string;
   sentAt: string;
 }
-
-
 
 export type {
   LoginFormInterface, SignupFormInterface, MessageFormInterface,

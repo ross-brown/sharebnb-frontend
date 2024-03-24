@@ -1,14 +1,15 @@
-import { BrowserRouter } from 'react-router-dom';
-import RoutesList from './RoutesList';
 import { useState, useEffect } from 'react';
+import { BrowserRouter } from 'react-router-dom';
+import decode from "jwt-decode";
+import toast, { Toaster } from 'react-hot-toast';
+
+import RoutesList from './RoutesList';
 import { CurrentUserInterface, ListingInterface, LoginFormInterface, SignupFormInterface } from './interfaces';
 import ShareBnbApi from './api/api';
 import Navbar from './Navbar';
-import { UserContext, SearchContext } from './contexts';
-import decode from "jwt-decode";
-import Loading from './common/Loading';
-import toast, { Toaster } from 'react-hot-toast';
 import Footer from './Footer';
+import Loading from './common/Loading';
+import { UserContext, SearchContext } from './contexts';
 import { useLocalStorage } from './hooks/useLocalStorage';
 
 

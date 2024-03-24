@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 
-
 export const useLocalStorage = <T>(key: string, defaultValue: T): [T, React.Dispatch<T>] => {
   const [value, setValue] = useState<T>(() => {
     let currentValue;
