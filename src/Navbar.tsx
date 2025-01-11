@@ -1,4 +1,4 @@
-import { Fragment } from "react";
+import { Fragment, memo } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import { Menu, Transition } from "@headlessui/react";
 import { MessageSquareText } from 'lucide-react';
@@ -15,7 +15,7 @@ interface NavbarProps {
     search: (term: string) => void;
 }
 
-function Navbar({ logout, search }: NavbarProps) {
+const Navbar = memo(function Navbar({ logout, search }: NavbarProps) {
     const { currentUser } = useCurrentUser();
     const location = useLocation();
 
@@ -158,6 +158,6 @@ function Navbar({ logout, search }: NavbarProps) {
             </nav>
         </header>
     );
-}
+});
 
 export default Navbar;

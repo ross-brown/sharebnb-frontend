@@ -1,7 +1,7 @@
 import Skeleton from "react-loading-skeleton";
+import { memo } from "react";
 
-
-export function ListingListSkeleton() {
+export const ListingListSkeleton = memo(function ListingListSkeleton() {
   return (
     <div className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3 lg:gap-8
         2xl:grid-cols-4 2xl:max-w-7xl 2xl:mx-auto">
@@ -47,7 +47,7 @@ export function ListingListSkeleton() {
       </div>
     </div>
   );
-}
+});
 
 
 export function ListingDetailSkeleton() {

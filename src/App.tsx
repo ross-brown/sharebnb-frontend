@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import decode from "jwt-decode";
 import toast, { Toaster } from 'react-hot-toast';
@@ -108,40 +108,56 @@ function App() {
     setBookings(bookings => new Set([...bookings].filter(i => i !== id)));
   }
 
+  const memoizedRouter = useMemo(() => (
+    <BrowserRouter>
+      <UserContext.Provider value={{
+        currentUser: currentUser.data,
+        setCurrentUser,
+        hasBookedListing,
+        bookListing,
+        cancelBooking,
+        logout
+      }}>
+        <SearchContext.Provider value={searchTerm}>
+          <Toaster
+            position='top-center'
+            toastOptions={{
+              style: {
+                fontWeight: "bold",
+                textAlign: "center"
+              },
+              success: {
+                duration: 4000,
+              }
+            }}
+          />
+          <Navbar logout={logout} search={setSearchTerm} />
+          <main className='flex-1'>
+            <RoutesList login={login} signup={signup} addListing={addListing} removeListing={removeListing} listings={listings} />
+          </main>
+          <Footer />
+        </SearchContext.Provider>
+      </UserContext.Provider>
+    </BrowserRouter>
+  ), [
+    currentUser.data,
+    hasBookedListing,
+    bookListing,
+    cancelBooking,
+    logout,
+    searchTerm,
+    login,
+    signup,
+    addListing,
+    removeListing,
+    listings
+  ]);
+
   if (!currentUser.isLoaded) return <Loading />;
 
   return (
     <div className="flex flex-col min-h-screen">
-      <BrowserRouter>
-        <UserContext.Provider value={{
-          currentUser: currentUser.data,
-          setCurrentUser,
-          hasBookedListing,
-          bookListing,
-          cancelBooking,
-          logout
-        }}>
-          <SearchContext.Provider value={searchTerm}>
-            <Toaster
-              position='top-center'
-              toastOptions={{
-                style: {
-                  fontWeight: "bold",
-                  textAlign: "center"
-                },
-                success: {
-                  duration: 4000,
-                }
-              }}
-            />
-            <Navbar logout={logout} search={setSearchTerm} />
-            <main className='flex-1'>
-              <RoutesList login={login} signup={signup} addListing={addListing} removeListing={removeListing} listings={listings} />
-            </main>
-            <Footer />
-          </SearchContext.Provider>
-        </UserContext.Provider>
-      </BrowserRouter>
+      {memoizedRouter}
     </div>
   );
 }
