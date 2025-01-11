@@ -1,8 +1,9 @@
+import React, { memo } from "react";
 import Button from "./common/Button";
 import { useCurrentUser } from "./contexts";
 import { Link } from "react-router-dom";
 
-function SplashPage() {
+const SplashPage = memo(function SplashPage() {
     const { currentUser } = useCurrentUser();
 
     return (
@@ -41,6 +42,6 @@ function SplashPage() {
         </div>
 
     );
-}
+});
 
 export default SplashPage;

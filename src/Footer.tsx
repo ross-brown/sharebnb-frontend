@@ -1,6 +1,7 @@
 import { CgWebsite } from "react-icons/cg";
 import { FaLinkedin } from "react-icons/fa";
 import { VscGithubInverted } from "react-icons/vsc";
+import { memo } from "react";
 
 
 function Footer() {
@@ -29,4 +30,4 @@ function Footer() {
 }
 
 
-export default Footer;
+export default memo(Footer);
